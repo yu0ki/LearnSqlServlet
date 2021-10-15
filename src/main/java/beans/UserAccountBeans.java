@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 public class UserAccountBeans {
 	private int uid;
     private String nickname;
-    OffsetDateTime registration_date;
+    OffsetDateTime registered_date;
     private boolean is_valid_account;
 
     public int getUid() {
@@ -28,12 +28,12 @@ public class UserAccountBeans {
         this.nickname = nickname;
     }
     
-    public OffsetDateTime getRegistrationDate() {
-        return registration_date;
+    public OffsetDateTime getRegisteredDate() {
+        return registered_date;
     }
-    public void setRegisrationDate(Object registration_date) {
-    	if (registration_date instanceof OffsetDateTime) {
-        	this.registration_date = (OffsetDateTime) registration_date;
+    public void setRegisteredDate(Object registered_date) {
+    	if (registered_date instanceof OffsetDateTime) {
+        	this.registered_date = (OffsetDateTime) registered_date;
     	}
     }
     

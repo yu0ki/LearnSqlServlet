@@ -9,10 +9,17 @@
 	
 		<jsp:include page="/WEB-INF//templates/headerout.jsp" flush="true" />
 		
-		<form action="/LoginServlet" method="post">
-		<label>ニックネーム</label>：<input type="text" name="nickname" required><br>
-		<input type="submit" value="ログイン"><br>
+		<form action="./log_in" method="post">
+		<div class="field py-3">
+			<label>ニックネーム</label>：<input type="text" name="nickname" required>
+		</div>
+		
+		<div class="py-3">
+			<input type="submit" value="ログイン" class="btn btn-success">
+		</div>
 		</form>
+		
+		
 		<p>
 		アカウント登録がお済みでない方はこちらへ↓<br>
 		<a href="/log_in"><button>新規登録</button></a>

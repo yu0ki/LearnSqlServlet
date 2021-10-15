@@ -68,13 +68,14 @@ public class LoginServlet extends HttpServlet {
         	HttpSession session = request.getSession(true);
             session.setAttribute("user", returnUAb);
             
-            RequestDispatcher rd = request.getRequestDispatcher("/home");
-            rd.forward(request, response);
-
+//            RequestDispatcher rd = request.getRequestDispatcher("/user_home");
+//            rd.forward(request, response);
+            response.sendRedirect("/LearnSqlServlet/user_home");
         } else {
         	// 認証失敗
-            RequestDispatcher rd = request.getRequestDispatcher("/home");
-            rd.forward(request, response);
+//            RequestDispatcher rd = request.getRequestDispatcher("/home");
+//            rd.forward(request, response);
+        	response.sendRedirect("/LearnSqlServlet/home");
         }
     	
     	
