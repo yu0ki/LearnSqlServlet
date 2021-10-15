@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class HomeOutServlet
  */
-@WebServlet("/HomeOutServlet")
+@WebServlet("/home")
 public class HomeOutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -34,11 +34,11 @@ public class UserAccountDAO {
 			con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 					+ ":5432/" + _dbname, _username, _password);
 
-            String sql = "SELECT uid, nickname FROM users WHERE nickname = ?";
+            String sql = "SELECT uid, nickname, registration_date, is_valid_account FROM users WHERE nickname = ?";
             PreparedStatement ps= con.prepareStatement(sql);
 
-            ps.setInt(1, uab.getUid());
-            ps.setString(2, uab.getNickname());
+           
+            ps.setString(1, uab.getNickname());
 
             ResultSet rs = ps.executeQuery();
 
@@ -47,6 +47,8 @@ public class UserAccountDAO {
                 // 見つかったアカウント情報を戻り値にセット
                 returnUAb.setUid(rs.getInt("uid"));
                 returnUAb.setNickname(rs.getString("nickname"));
+                returnUAb.setRegisrationDate(rs.getObject("registration_date"));
+                
             } else {
                 // アカウントがなければnullを返す
                 return null;

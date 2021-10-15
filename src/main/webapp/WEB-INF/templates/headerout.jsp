@@ -10,9 +10,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-        	<li><a href = "/HomeOutServlet" class="nav-link text-light">ホーム</a></li>
-      		<li><a href = "/HomeOutServlet" class="nav-link text-light">このサイトについて</a></li>
-      		<li><a href = "/HomeOutServlet" class="nav-link text-light">新規登録</a></li>
+        	<li><a href = "/home" class="nav-link text-light">ホーム</a></li>
+      		<li><a href = "/home" class="nav-link text-light">このサイトについて</a></li>
+      		<li><a href = "/home" class="nav-link text-light">新規登録</a></li>
         </ul>
       </div>
     </div>
@@ -20,4 +20,4 @@
 </header>
 
 <body class="mb-5">
-	<div class="container px-3">
+	<div class="container px-3 py-3">
