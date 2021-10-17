@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import beans.UserAccountBeans;
+import beans.AdminAccountBeans;
 
-public class UserAccountRegisterDAO {
+public class AdminAccountRegisterDAO {
 	
 	// データベース接続に使用する情報
 		private String _hostname = "localhost";
@@ -15,7 +15,7 @@ public class UserAccountRegisterDAO {
 		private String _username = "postgres";
 		private String _password = "postgres";
 		
-public  UserAccountRegisterDAO(UserAccountBeans ab) {
+public  AdminAccountRegisterDAO(AdminAccountBeans ab) {
 
 	Connection con = null;
 	try {
@@ -23,10 +23,12 @@ public  UserAccountRegisterDAO(UserAccountBeans ab) {
 		con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 				+ ":5432/" + _dbname, _username, _password);
 
-        String sql = "INSERT INTO users (nickname) VALUES (?)";
+        String sql = "INSERT INTO admins VALUES (?, ?, ?)";
         PreparedStatement ps= con.prepareStatement(sql);
 
-        ps.setString(1, ab.getNickname());
+        ps.setString(1, ab.getAdminNumber());
+        ps.setString(2, ab.getResponsibility());
+        ps.setString(3, ab.getContact());
 
         int r = ps.executeUpdate();
 

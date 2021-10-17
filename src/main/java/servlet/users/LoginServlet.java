@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
     	// アカウントの有無を検索
         // 検索したアカウント情報を取得
         UserAccountDAO ua_dao = new UserAccountDAO();
-        UserAccountBeans returnUAb = ua_dao.findAccount(uab);
+        UserAccountBeans returnUAb = ua_dao.findUserAccount(uab);
         
         
         if(returnUAb != null) {

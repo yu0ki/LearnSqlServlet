@@ -6,11 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import beans.UserAccountBeans;
+import beans.AdminAccountBeans;
 
-public class UserAccountDAO {
-//	ここでは、ユーザーによるログイン処理時にユーザーアカウントを探す
-//	findUserAccountメソッドを実装する。
+public class AdminAccountDAO {
+//	ここでは、管理者によるログイン処理時に管理者アカウントを探す
+//	findAdminAccountメソッドを実装する。
 	
 	
 
@@ -22,10 +22,10 @@ public class UserAccountDAO {
 	private String _password = "postgres";
 	
     // ログインアカウントを探す
-    public UserAccountBeans findUserAccount(UserAccountBeans uab) {
+    public AdminAccountBeans findAdminAccount(AdminAccountBeans aab) {
 
         // 戻り値の用意
-    	UserAccountBeans returnUAb = new UserAccountBeans();
+    	AdminAccountBeans returnAAb = new AdminAccountBeans();
 
         // データベースへ接続
     	Connection con = null;
@@ -34,21 +34,24 @@ public class UserAccountDAO {
 			con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 					+ ":5432/" + _dbname, _username, _password);
 
-            String sql = "SELECT uid, nickname, registered_date, is_valid_account FROM users WHERE nickname = ?";
+            String sql = "SELECT admin_number, responsibility, contact FROM admins WHERE admin_number = ? AND responsibility = ?::content";
             PreparedStatement ps= con.prepareStatement(sql);
 
            
-            ps.setString(1, uab.getNickname());
-            System.out.println(sql);
+            ps.setString(1, aab.getAdminNumber());
+            System.out.println(aab.getAdminNumber());
+            ps.setString(2, aab.getResponsibility());
+            System.out.println(aab.getResponsibility());
+//            System.out.println(sql);
 
             ResultSet rs = ps.executeQuery();
 
 
             if (rs.next()) {
                 // 見つかったアカウント情報を戻り値にセット
-                returnUAb.setUid(rs.getInt("uid"));
-                returnUAb.setNickname(rs.getString("nickname"));
-                returnUAb.setRegisteredDate(rs.getObject("registered_date"));
+                returnAAb.setAdminNumber(rs.getString("admin_number"));
+                returnAAb.setResponsibility(rs.getString("responsibility"));
+                returnAAb.setContact(rs.getString("contact"));
                 
             } else {
                 // アカウントがなければnullを返す
@@ -65,7 +68,7 @@ public class UserAccountDAO {
 				e.printStackTrace();
 			}
 		}
-        return returnUAb;
+        return returnAAb;
     }
 	
 
