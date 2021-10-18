@@ -63,25 +63,27 @@ public class AdminSignUpServlet extends HttpServlet {
         // アカウントをDBに登録
         try {
         	AdminAccountRegisterDAO aard = new AdminAccountRegisterDAO(aab);
+        	// セッションにアカウント情報を保存
+            HttpSession session = request.getSession();
+            session.setAttribute("admin", aab);
+
+            // ユーザーのホーム画面へ遷移
+            response.sendRedirect("/LearnSqlServlet/admins/home");
         }
         catch (Exception e) {
         	// TODO flash実装
+        	System.out.println("check2");
+        
         	request.setCharacterEncoding("UTF-8");
     		response.setContentType("text/html;charset=UTF-8");
-    		RequestDispatcher dispatcher = request.getRequestDispatcher("homeout.jsp");
-    		dispatcher.forward(request,response);
+    		response.sendRedirect("/LearnSqlServlet/home");
         }
         
         
         
         
 
-        // セッションにアカウント情報を保存
-        HttpSession session = request.getSession();
-        session.setAttribute("admin", aab);
-
-        // ユーザーのホーム画面へ遷移
-        response.sendRedirect("/LearnSqlServlet/admins/home");
+        
 	}
 
 }

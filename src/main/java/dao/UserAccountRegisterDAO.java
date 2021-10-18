@@ -30,12 +30,11 @@ public  UserAccountRegisterDAO(UserAccountBeans ab) throws Exception {
 
         int r = ps.executeUpdate();
 
-//        if(r != 0) {
-//        rはinsert, delete, update以外のときは0を返す。今回はbegin commitで囲んだので、0になってしまっているようだ
+        if(r != 0) {
             System.out.println("新規登録成功！");
-//        } else {
-//            System.out.println("新規登録失敗");
-//        }
+        } else {
+            System.out.println("新規登録失敗");
+        }
 
 	} catch (Exception e) {
 		e.printStackTrace();

@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.List;
 
 import beans.AdminAccountBeans;
 
@@ -32,12 +34,19 @@ public  AdminAccountRegisterDAO(AdminAccountBeans ab) throws Exception {
         String sql2 = "SELECT * FROM admin_names WHERE admin_number = \' " + ab.getAdminNumber() + "\'"; 
         Statement stmt = con.createStatement(); 
         ResultSet rs2 = stmt.executeQuery(sql2);
-        System.out.println(rs2.next());
-        System.out.println(rs2 == null);
         
+        List<String> existing_admin = Arrays.asList();
+        while(rs2.next()) {
+        	existing_admin.add(rs2.getString("admin_number"));
+        }
+        System.out.println(rs2.next());
+//        System.out.println(rs2.getString("admin_number") == null);
+          if (existing_admin.isEmpty()) {
+        	  System.out.println("true");
+          }
        
         
-        if (!rs2.next()) {
+        if (!existing_admin.isEmpty()) {
         	sql += "INSERT INTO admin_names VALUES ( \'" + ab.getAdminNumber() + "\',  \'" + ab.getName() + "\') ;";
 //        	PreparedStatement ps_sub = con.prepareStatement(sql);
 //        	try {
@@ -64,14 +73,15 @@ public  AdminAccountRegisterDAO(AdminAccountBeans ab) throws Exception {
 
         int r = ps.executeUpdate();
 
-        if(r != 0) {
+//        if(r != 0) {
             System.out.println("新規登録成功！");
-        } else {
-            System.out.println("新規登録失敗");
-        }
+//        } else {
+//            System.out.println("新規登録失敗");
+//        }
 
 	} catch (Exception e) {
 		e.printStackTrace();
+		System.out.println("check1");
 		throw e;
 		
 	} finally {
