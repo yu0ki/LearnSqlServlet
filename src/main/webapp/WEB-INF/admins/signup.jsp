@@ -9,12 +9,16 @@
 	
 		<jsp:include page="/WEB-INF//templates/headerout.jsp" flush="true" />
 		
-		<form action="./log_in" method="post">
+		<form action="./sign_up" method="post">
 		<div class="field py-3">
 			<label>管理者番号</label>：<input type="text" name="admin_number" required autofocus>
 		</div>
 		
-		<div class="field py3">
+		<div class="field py-3">
+			<label>氏名</label>：<input type="text" name="name" required>
+		</div>
+		
+		<div class="filed py-3">
 			<label>担当内容</label> : <select name="responsibility" required>
 										<option value="">選択してください</option>
 										<option value="ストーリー">ストーリー</option>
@@ -23,15 +27,19 @@
 										</select>
 		</div>
 		
+		<div class="field py-3">
+			<label>連絡先</label> : <input type="text" name="contact" required>
+		</div>
+		
 		<div class="py-3">
-			<input type="submit" value="ログイン" class="btn btn-success">
+			<input type="submit" value="新規登録" class="btn btn-success">
 		</div>
 		</form>
 		
 		
 		<p>
-		アカウント登録がお済みでない方はこちらへ↓<br>
-		<a href="/sign_up"><button>新規登録</button></a>
+		アカウント登録がお済の方はこちらへ↓<br>
+		<a href="/admins/log_in"><button class="btn btn-primary">ログイン</button></a>
 		</p>
 		
 	

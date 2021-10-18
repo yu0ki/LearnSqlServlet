@@ -63,7 +63,7 @@ public class AdminLoginServlet extends HttpServlet {
         // 検索したアカウント情報を取得
         AdminAccountDAO aa_dao = new AdminAccountDAO();
         AdminAccountBeans returnAAb = aa_dao.findAdminAccount(aab);
-        System.out.println(returnAAb == null);
+//        System.out.println(returnAAb == null);
        
         
         
@@ -75,7 +75,7 @@ public class AdminLoginServlet extends HttpServlet {
             
 //            RequestDispatcher rd = request.getRequestDispatcher("/user_home");
 //            rd.forward(request, response);
-            response.sendRedirect("/LearnSqlServlet/user_home");
+            response.sendRedirect("/LearnSqlServlet/admins/home");
         } else {
         	// 認証失敗
 //            RequestDispatcher rd = request.getRequestDispatcher("/home");

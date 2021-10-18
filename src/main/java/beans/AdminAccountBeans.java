@@ -11,6 +11,8 @@ public class AdminAccountBeans {
 	private String admin_number;
     private String responsibility;
     private String contact;
+    
+    private String name;
 
     public String getAdminNumber() {
         return admin_number;
@@ -29,6 +31,13 @@ public class AdminAccountBeans {
     }
     public void setContact(String contact) {
         this.contact = contact;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
    
 

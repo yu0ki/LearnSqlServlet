@@ -15,7 +15,7 @@ public class UserAccountRegisterDAO {
 		private String _username = "postgres";
 		private String _password = "postgres";
 		
-public  UserAccountRegisterDAO(UserAccountBeans ab) {
+public  UserAccountRegisterDAO(UserAccountBeans ab) throws Exception {
 
 	Connection con = null;
 	try {
@@ -30,14 +30,16 @@ public  UserAccountRegisterDAO(UserAccountBeans ab) {
 
         int r = ps.executeUpdate();
 
-        if(r != 0) {
+//        if(r != 0) {
+//        rはinsert, delete, update以外のときは0を返す。今回はbegin commitで囲んだので、0になってしまっているようだ
             System.out.println("新規登録成功！");
-        } else {
-            System.out.println("新規登録失敗");
-        }
+//        } else {
+//            System.out.println("新規登録失敗");
+//        }
 
 	} catch (Exception e) {
 		e.printStackTrace();
+		throw e;
 	} finally {
 		try {
 			if (con != null) {

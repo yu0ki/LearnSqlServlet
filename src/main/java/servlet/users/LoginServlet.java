@@ -47,6 +47,8 @@ public class LoginServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
+    	request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
     	
     	// ログインを要求してきたユーザーが正しいユーザーかどうかを確認する。
     	// そのためにまずは、ユーザーが打ち込んできたニックネームを取得する。
