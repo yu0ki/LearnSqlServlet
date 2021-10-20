@@ -16,13 +16,13 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class UserFilter
  */
-@WebFilter(urlPatterns= {"/user_home"})
-public class UserFilter implements Filter {
+@WebFilter(urlPatterns= {"/admins/*"})
+public class AdminFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public UserFilter() {
+    public AdminFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -47,13 +47,13 @@ public class UserFilter implements Filter {
 			// シークレットブラウズでやると分かりやすい。
 			// 普通のブラウジングだと一回接続成功するとセッションが一定時間保たれてしまう
 			System.out.println("direct access");
-			((HttpServletResponse) response).sendRedirect("/LearnSqlServlet/log_in");
+			((HttpServletResponse) response).sendRedirect("/LearnSqlServlet/admins/log_in");
 			
-		} else if (session.getAttribute("user") == null){
+		} else if (session.getAttribute("admin") == null){
 //			System.out.println((session.getAttribute("user")));
-			System.out.println("You are not a user.");
+			System.out.println("You are not an admin.");
 			((HttpServletRequest) request).getSession(false).invalidate();
-			((HttpServletResponse) response).sendRedirect("/LearnSqlServlet/log_in");
+			((HttpServletResponse) response).sendRedirect("/LearnSqlServlet/admins/log_in");
 		} 
 		
 		// pass the request along the filter chain
