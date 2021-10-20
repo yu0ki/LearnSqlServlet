@@ -39,11 +39,9 @@ public  AdminAccountRegisterDAO(AdminAccountBeans ab) throws Exception {
         while(rs2.next()) {
         	existing_admin.add(rs2.getString("admin_number"));
         }
-        System.out.println(rs2.next());
-//        System.out.println(rs2.getString("admin_number") == null);
-          if (existing_admin.isEmpty()) {
-        	  System.out.println("true");
-          }
+//          if (existing_admin.isEmpty()) {
+//        	  System.out.println("true");
+//          }
        
         
         if (!existing_admin.isEmpty()) {
@@ -81,7 +79,6 @@ public  AdminAccountRegisterDAO(AdminAccountBeans ab) throws Exception {
 
 	} catch (Exception e) {
 		e.printStackTrace();
-		System.out.println("check1");
 		throw e;
 		
 	} finally {

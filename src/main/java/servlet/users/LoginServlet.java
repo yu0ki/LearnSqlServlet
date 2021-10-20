@@ -69,6 +69,7 @@ public class LoginServlet extends HttpServlet {
         	// 新たなセッションを生成してログイン
         	HttpSession session = request.getSession(true);
             session.setAttribute("user", returnUAb);
+            System.out.println("session.getAttribute(user) = " + session.getAttribute("user"));
             
 //            RequestDispatcher rd = request.getRequestDispatcher("/user_home");
 //            rd.forward(request, response);

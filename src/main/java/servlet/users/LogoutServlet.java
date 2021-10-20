@@ -7,18 +7,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class UserHomeServlet
+ * Servlet implementation class LogoutServlet
  */
-@WebServlet("/user_home")
-public class UserHomeServlet extends HttpServlet {
+@WebServlet("/log_out")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserHomeServlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,9 +29,11 @@ public class UserHomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// url 直打ち防止フィルターがここで働きます。encoding: utf-8フィルターも働きます
-//		System.out.println(request.getSession(false));
-		response.getWriter().append("user_home Served at: ").append(((HttpServletRequest) request).getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
+        session.invalidate();
+
+        response.sendRedirect("/LearnSqlServlet/home");
 	}
 
 	/**

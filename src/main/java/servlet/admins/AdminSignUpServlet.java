@@ -72,7 +72,6 @@ public class AdminSignUpServlet extends HttpServlet {
         }
         catch (Exception e) {
         	// TODO flash実装
-        	System.out.println("check2");
         
         	request.setCharacterEncoding("UTF-8");
     		response.setContentType("text/html;charset=UTF-8");
