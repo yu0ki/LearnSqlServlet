@@ -63,8 +63,8 @@ public class LoginServlet extends HttpServlet {
         UserAccountDAO ua_dao = new UserAccountDAO();
         UserAccountBeans returnUAb = ua_dao.findUserAccount(uab);
         
-        
-        if(returnUAb != null) {
+        // アカウントが登録済みである　かつ　退会済みでない
+        if(returnUAb != null && returnUAb.getIsValidAccount()){
         	// ユーザーが正しい時
         	// 新たなセッションを生成してログイン
         	HttpSession session = request.getSession(true);

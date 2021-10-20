@@ -2,23 +2,24 @@ package servlet.admins;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 /**
- * Servlet implementation class AdminHomeServlet
+ * Servlet implementation class AdminLogoutServlet
  */
-@WebServlet("/admins/home")
-public class AdminHomeServlet extends HttpServlet {
+@WebServlet("/admins/log_out")
+public class AdminLogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminHomeServlet() {
+    public AdminLogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,8 +29,10 @@ public class AdminHomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admins/admin_home.jsp");
-		dispatcher.forward(request,response);
+		HttpSession session = request.getSession();
+        session.invalidate();
+
+        response.sendRedirect("/LearnSqlServlet/home");
 	}
 
 	/**

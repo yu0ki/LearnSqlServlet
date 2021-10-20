@@ -11,7 +11,7 @@ public class AdminAccountBeans {
 	private String admin_number;
     private String responsibility;
     private String contact;
-    
+    private boolean is_valid_account;
     private String name;
 
     public String getAdminNumber() {
@@ -38,6 +38,13 @@ public class AdminAccountBeans {
     }
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public boolean getIsValidAccount() {
+        return is_valid_account;
+    }
+    public void setIsValidAccount(boolean is_valid_account) {
+        this.is_valid_account = is_valid_account;
     }
    
 

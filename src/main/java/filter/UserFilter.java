@@ -48,12 +48,14 @@ public class UserFilter implements Filter {
 			// 普通のブラウジングだと一回接続成功するとセッションが一定時間保たれてしまう
 			System.out.println("direct access");
 			((HttpServletResponse) response).sendRedirect("/LearnSqlServlet/log_in");
+			return;
 			
 		} else if (session.getAttribute("user") == null){
 //			System.out.println((session.getAttribute("user")));
 			System.out.println("You are not a user.");
 			((HttpServletRequest) request).getSession(false).invalidate();
 			((HttpServletResponse) response).sendRedirect("/LearnSqlServlet/log_in");
+			return;
 		} 
 		
 		// pass the request along the filter chain

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class UserFilter
  */
-@WebFilter(urlPatterns= {"/admins/*"})
+@WebFilter(urlPatterns= {"/admins/home"})
 public class AdminFilter implements Filter {
 
     /**
@@ -39,21 +39,23 @@ public class AdminFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
-		request.setCharacterEncoding("UTF-8");
+//		request.setCharacterEncoding("UTF-8");
 		HttpSession session = ((HttpServletRequest) request).getSession(false);
 		
 		if ( session == null) {
 //			System.out.println("direct access");
 			// シークレットブラウズでやると分かりやすい。
 			// 普通のブラウジングだと一回接続成功するとセッションが一定時間保たれてしまう
-			System.out.println("direct access");
+			System.out.println("direct access for admin");
 			((HttpServletResponse) response).sendRedirect("/LearnSqlServlet/admins/log_in");
+			return;
 			
 		} else if (session.getAttribute("admin") == null){
 //			System.out.println((session.getAttribute("user")));
 			System.out.println("You are not an admin.");
 			((HttpServletRequest) request).getSession(false).invalidate();
 			((HttpServletResponse) response).sendRedirect("/LearnSqlServlet/admins/log_in");
+			return;
 		} 
 		
 		// pass the request along the filter chain

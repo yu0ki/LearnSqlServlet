@@ -34,7 +34,7 @@ public class AdminAccountDAO {
 			con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 					+ ":5432/" + _dbname, _username, _password);
 
-            String sql = "SELECT admin_number, responsibility, contact, name FROM admins NATURAL JOIN admin_names WHERE admin_number = ? AND responsibility = ?::content";
+            String sql = "SELECT admin_number, responsibility, contact, is_valid_account, name FROM admins NATURAL JOIN admin_names WHERE admin_number = ? AND responsibility = ?::content";
             PreparedStatement ps= con.prepareStatement(sql);
 
            
@@ -53,6 +53,7 @@ public class AdminAccountDAO {
                 returnAAb.setResponsibility(rs.getString("responsibility"));
                 returnAAb.setContact(rs.getString("contact"));
                 returnAAb.setName(rs.getString("name"));
+                returnAAb.setIsValidAccount(rs.getBoolean("is_valid_account"));
                 
             } else {
                 // アカウントがなければnullを返す

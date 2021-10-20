@@ -66,8 +66,8 @@ public class AdminLoginServlet extends HttpServlet {
 //        System.out.println(returnAAb == null);
        
         
-        
-        if(returnAAb != null) {
+        // アカウントが存在する　かつ　退会済みでない
+        if(returnAAb != null && returnAAb.getIsValidAccount()) {
         	// ユーザーが正しい時
         	// 新たなセッションを生成してログイン
         	HttpSession session = request.getSession(true);

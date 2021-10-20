@@ -58,7 +58,7 @@ public  AdminAccountRegisterDAO(AdminAccountBeans ab) throws Exception {
 //        	}
         } 
         
-        sql += " INSERT INTO admins VALUES (?, ?::content, ?); COMMIT;";
+        sql += " INSERT INTO admins (admin_number, responsibility, contact) VALUES (?, ?::content, ?); COMMIT;";
         
         PreparedStatement ps= con.prepareStatement(sql);
         ps.setString(1, ab.getAdminNumber());
