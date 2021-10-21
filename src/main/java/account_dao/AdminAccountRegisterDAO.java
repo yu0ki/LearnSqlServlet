@@ -1,4 +1,4 @@
-package dao;
+package account_dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,7 +27,7 @@ public  AdminAccountRegisterDAO(AdminAccountBeans ab) throws Exception {
 		con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 				+ ":5432/" + _dbname, _username, _password);
 
-        String sql = "BEGIN; ";
+        String sql = "";
         
         
 //        ここで、新規登録者の名前が既にadmin_namesに登録されているかどうかを確認する。
@@ -44,7 +44,7 @@ public  AdminAccountRegisterDAO(AdminAccountBeans ab) throws Exception {
 //          }
        
         
-        if (!existing_admin.isEmpty()) {
+        if (existing_admin.isEmpty()) {
         	sql += "INSERT INTO admin_names VALUES ( \'" + ab.getAdminNumber() + "\',  \'" + ab.getName() + "\') ;";
 //        	PreparedStatement ps_sub = con.prepareStatement(sql);
 //        	try {
@@ -58,7 +58,7 @@ public  AdminAccountRegisterDAO(AdminAccountBeans ab) throws Exception {
 //        	}
         } 
         
-        sql += " INSERT INTO admins (admin_number, responsibility, contact) VALUES (?, ?::content, ?); COMMIT;";
+        sql += " INSERT INTO admins (admin_number, responsibility, contact) VALUES (?, ?::content, ?); ";
         
         PreparedStatement ps= con.prepareStatement(sql);
         ps.setString(1, ab.getAdminNumber());

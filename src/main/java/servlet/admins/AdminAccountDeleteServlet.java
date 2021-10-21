@@ -8,21 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import account_dao.AdminAccountEditDAO;
+import account_dao.AdminAccountDeleteDAO;
 import beans.AdminAccountBeans;
 
 /**
- * Servlet implementation class AdminAccountEditServlet
+ * Servlet implementation class AdminAccountDeleteServlet
  */
-@WebServlet("/admins/account/edit")
-public class AdminAccountEditServlet extends HttpServlet {
+@WebServlet("/admins/confirm_account_delete")
+public class AdminAccountDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminAccountEditServlet() {
+    public AdminAccountDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +33,7 @@ public class AdminAccountEditServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admins/account_edit.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admins/confirm_account_delete.jsp");
 		dispatcher.forward(request,response);
 	}
 
@@ -41,23 +42,28 @@ public class AdminAccountEditServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String new_admin_number = request.getParameter("admin_number");
-		String new_name = request.getParameter("name");
-		String new_responsibility = request.getParameter("responsibility");
-		String new_contact = request.getParameter("contact");
+//		doGet(request, response);
+		// DAOの実装がいちいち面倒になってきたので、ここで直に実装してやります。
+		// コードの可読性とか知りません。
 		
-		AdminAccountBeans aab = (AdminAccountBeans) request.getSession(false).getAttribute("admin");
+		// 現在ログインしている管理者の情報を取得
+		HttpSession session = request.getSession(false);
+		AdminAccountBeans aab = (AdminAccountBeans) session.getAttribute("admin");
 		
-		try {
-			AdminAccountEditDAO aaed = new AdminAccountEditDAO(aab, new_admin_number, new_name, new_responsibility, new_contact);
-		}
+		try{
+			AdminAccountDeleteDAO aadd = new AdminAccountDeleteDAO(aab);
+		} 
 		catch (Exception e) {
-			//更新失敗時はターミナルに表示
-			System.out.println("更新失敗");
-		}
-		finally {
 			response.sendRedirect("/LearnSqlServlet/admins/home");
+			return;
 		}
+		
+		// セッションを消去しログアウトさせてからログイン前ホームに遷移
+		 session.invalidate();
+
+	     response.sendRedirect("/LearnSqlServlet/home");
+		
+		
 	}
 
 }

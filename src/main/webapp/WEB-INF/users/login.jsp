@@ -22,7 +22,7 @@
 		
 		<p>
 		アカウント登録がお済みでない方はこちらへ↓<br>
-		<a href="/log_in"><button>新規登録</button></a>
+		<a href="/LearnSqlServlet/log_in" class="btn btn-primary">新規登録</a>
 		</p>
 		
 	

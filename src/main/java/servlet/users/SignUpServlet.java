@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import account_dao.UserAccountDAO;
+import account_dao.UserAccountRegisterDAO;
 import beans.UserAccountBeans;
-import dao.UserAccountDAO;
-import dao.UserAccountRegisterDAO;
 
 /**
  * Servlet implementation class SignUpServlet

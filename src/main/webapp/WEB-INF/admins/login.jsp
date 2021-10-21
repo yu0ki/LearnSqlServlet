@@ -31,7 +31,7 @@
 		
 		<p>
 		アカウント登録がお済みでない方はこちらへ↓<br>
-		<a href="/sign_up"><button>新規登録</button></a>
+		<a href="/LearnSqlServlet/admins/sign_up" class="btn btn-primary">新規登録</a>
 		</p>
 		
 	

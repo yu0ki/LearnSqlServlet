@@ -22,7 +22,7 @@
 		
 		<p>
 		アカウント登録がお済の方はこちらへ↓<br>
-		<a href="/log_in"><button class="btn btn-primary">ログイン</button></a>
+		<a href="/LearnSqlServlet/log_in"><button class="btn btn-primary">ログイン</button></a>
 		</p>
 		
 	
