@@ -10,22 +10,23 @@
 		<jsp:include page="/WEB-INF//templates/headerout.jsp" flush="true" />
 		
 		<form action="./log_in" method="post">
-		<div class="field py-3">
-			<label>管理者番号</label>：<input type="text" name="admin_number" required autofocus>
-		</div>
-		
-		<div class="field py3">
-			<label>担当内容</label> : <select name="responsibility" required>
-										<option value="">選択してください</option>
-										<option value="ストーリー">ストーリー</option>
-										<option value="問題">問題</option>
-										<option value="告知">告知</option>
-										</select>
-		</div>
-		
-		<div class="py-3">
-			<input type="submit" value="ログイン" class="btn btn-success">
-		</div>
+
+			<div class="field py-3">
+				<label>管理者番号</label>：<input type="text" name="admin_number" required autofocus>
+			</div>
+			
+			<div class="field py3">
+				<label>担当内容　</label> : <select name="responsibility" required>
+											<option value="">選択してください</option>
+											<option value="ストーリー">ストーリー</option>
+											<option value="問題">問題</option>
+											<option value="告知">告知</option>
+											</select>
+			</div>
+			
+			<div class="py-3">
+				<input type="submit" value="ログイン" class="btn btn-success">
+			</div>
 		</form>
 		
 		

@@ -15,11 +15,11 @@
 		</div>
 		
 		<div class="field py-3">
-			<label>氏名</label>：<input type="text" name="name" required>
+			<label>氏名　　　</label>：<input type="text" name="name" required>
 		</div>
 		
 		<div class="filed py-3">
-			<label>担当内容</label> : <select name="responsibility" required>
+			<label>担当内容　</label> : <select name="responsibility" required>
 										<option value="">選択してください</option>
 										<option value="ストーリー">ストーリー</option>
 										<option value="問題">問題</option>
@@ -28,7 +28,7 @@
 		</div>
 		
 		<div class="field py-3">
-			<label>連絡先</label> : <input type="text" name="contact" required>
+			<label>連絡先　　</label> : <input type="text" name="contact" required>
 		</div>
 		
 		<div class="py-3">
