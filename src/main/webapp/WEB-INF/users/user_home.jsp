@@ -20,7 +20,7 @@
 						<% beans.UserAccountBeans user = (beans.UserAccountBeans) session.getAttribute("user"); %>
 						<% out.println(user.getNickname()); %> 	
 						
-						<form action="./edit" method="post">
+						<form action="./account/edit" method="post">
 							<div class="field py-3">
 								<input type="text" name="nickname" required autofocus>
 								<input type="submit" value="ニックネームを変更" class="btn btn-success mx-3">
@@ -47,9 +47,7 @@
 		<div class="row py-3">
 			<!--編集ボタンと退会ボタン -->
 			<div class="col-3"></div>
-			<div class="col-4">
-				<a href="/LearnSqlServlet/account/edit" class="btn btn-success">ニックネームを変更する</a>
-			</div>
+			
 			<div class="col-5">
 				<a href="/LearnSqlServlet/confirm_account_delete" class="btn btn-danger">退会する</a>
 			</div>
