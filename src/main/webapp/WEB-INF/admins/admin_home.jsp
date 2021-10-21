@@ -45,8 +45,16 @@
 			</table>
 		</div>
 		
-		<div class="row">
+		<div class="row py-3">
 			<!--編集ボタンと退会ボタン -->
+			<div class="col-3"></div>
+			<div class="col-4">
+				<a href="/LearnSqlServlet/admins/account/edit" class="btn btn-success">編集する</a>
+			</div>
+			<div class="col-5">
+				<a href="/LearnSqlServlet/admins/confirm_account_delete" class="btn btn-danger">退会する</a>
+			</div>
+			
 		</div>
 		
 	

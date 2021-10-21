@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class UserFilter
  */
-@WebFilter(urlPatterns= {"/admins/home"})
+@WebFilter(urlPatterns= {"/admins/home", "/admins/account/edit"})
 public class AdminFilter implements Filter {
 
     /**
