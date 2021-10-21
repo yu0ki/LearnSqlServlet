@@ -64,12 +64,14 @@ public class LoginServlet extends HttpServlet {
         UserAccountBeans returnUAb = ua_dao.findUserAccount(uab);
         
         // アカウントが登録済みである　かつ　退会済みでない
+//        System.out.println(returnUAb != null);
+//        System.out.println(returnUAb.getIsValidAccount());
         if(returnUAb != null && returnUAb.getIsValidAccount()){
         	// ユーザーが正しい時
         	// 新たなセッションを生成してログイン
         	HttpSession session = request.getSession(true);
             session.setAttribute("user", returnUAb);
-            System.out.println("session.getAttribute(user) = " + session.getAttribute("user"));
+//            System.out.println("session.getAttribute(user) = " + session.getAttribute("user"));
             
 //            RequestDispatcher rd = request.getRequestDispatcher("/user_home");
 //            rd.forward(request, response);

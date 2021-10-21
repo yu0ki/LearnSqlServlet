@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
 
 import beans.UserAccountBeans;
 
@@ -48,8 +49,10 @@ public class UserAccountDAO {
                 // 見つかったアカウント情報を戻り値にセット
                 returnUAb.setUid(rs.getInt("uid"));
                 returnUAb.setNickname(rs.getString("nickname"));
-                returnUAb.setRegisteredDate(rs.getObject("registered_date"));
-                
+                returnUAb.setRegisteredDate(rs.getObject("registered_date", OffsetDateTime.class));
+                returnUAb.setIsValidAccount(rs.getBoolean("is_valid_account"));   
+                System.out.println(rs.getObject("registered_date"));
+                System.out.println(returnUAb.getRegisteredDate());
             } else {
                 // アカウントがなければnullを返す
                 return null;
