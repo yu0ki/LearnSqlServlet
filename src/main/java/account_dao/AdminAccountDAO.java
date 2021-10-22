@@ -16,13 +16,13 @@ public class AdminAccountDAO {
 
 
 	// データベース接続に使用する情報
-	private String _hostname = "localhost";
-	private String _dbname = "sampledb";
-	private String _username = "postgres";
-	private String _password = "postgres";
+	private static String _hostname = "localhost";
+	private static String _dbname = "sampledb";
+	private static String _username = "postgres";
+	private static String _password = "postgres";
 	
     // ログインアカウントを探す
-    public AdminAccountBeans findAdminAccount(AdminAccountBeans aab) {
+    public static AdminAccountBeans findAdminAccount(AdminAccountBeans aab) {
 
         // 戻り値の用意
     	AdminAccountBeans returnAAb = new AdminAccountBeans();

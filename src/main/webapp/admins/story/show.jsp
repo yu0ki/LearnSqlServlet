@@ -47,6 +47,29 @@
 				<th class="bg-light">次のストーリーのタイトル</th>
 				<td><%= asb.getNextTitle() %></td>
 			</tr>
+			
+			<% beans.AdminAccountBeans aab = new beans.AdminAccountBeans(); %>
+			<% aab.setAdminNumber(asb.getAdminNumber()); %>
+			<% aab.setResponsibility(asb.getResponsibility()); %>
+			<% aab = account_dao.AdminAccountDAO.findAdminAccount(aab);  %>
+			
+			<tr>
+				<th class="bg-light">最終編集者</th>
+				<td><%= aab.getName() %>（<%= aab.getResponsibility() %>）</td>
+			</tr>
+			
+			<tr>
+				<th class="bg-light">連絡先</th>
+				<td><%= aab.getContact() %></td>
+			</tr>
+			
+			<tr>
+				<th class="bg-light">最終編集日時</th>
+				<td><% java.time.format.DateTimeFormatter odtFormatter = java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;%>
+						<% String str = odtFormatter.format(asb.getEditingDate().atZoneSameInstant(java.time.ZoneId.of("Asia/Tokyo"))); %>
+						<% out.println(str); %> 	
+				</td>
+			</tr>
 		
 			
 			

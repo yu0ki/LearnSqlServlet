@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
 
 import beans.AdminStoryBeans;
 
@@ -21,7 +22,7 @@ public class AdminStoryShowDAO {
 		// ストーリーの題名と最終編集者(名前と管理者番号と担当内容と連絡先)とその日時を取得
 		
 	    public static AdminStoryBeans findStory(String title) {
-	    	System.out.println(title);
+//	    	System.out.println(title);
 	        // 戻り値の用意
 	    	AdminStoryBeans returnASB =  new AdminStoryBeans();
 
@@ -32,9 +33,11 @@ public class AdminStoryShowDAO {
 				con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 						+ ":5432/" + _dbname, _username, _password);
 
-	            String sql = "SELECT * FROM stories WHERE title = ?";
+	            String sql = "SELECT * FROM stories JOIN story_creation_editing USING (title)"
+	            		+ "WHERE title = ? AND editing_date = (SELECT MAX (editing_date) FROM story_creation_editing WHERE title = ?)";
 	            PreparedStatement ps= con.prepareStatement(sql);
 	            ps.setString(1, title);
+	            ps.setString(2, title);
 	            ResultSet rs = ps.executeQuery();
 
 	           
@@ -44,6 +47,9 @@ public class AdminStoryShowDAO {
 		            returnASB.setSentence(rs.getString("sentence"));
 		            returnASB.setEid(rs.getInt("eid"));
 		            returnASB.setNextTitle(rs.getString("next_title"));
+		            returnASB.setAdminNumber(rs.getString("admin_number"));
+		            returnASB.setResponsibility(rs.getString("responsibility"));
+		            returnASB.setEditingDate(rs.getObject("editing_date", OffsetDateTime.class));
 	            } else {
 	            	// storyが見つからなかった場合はnullを返す
 	            	return null;

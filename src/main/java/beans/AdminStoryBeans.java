@@ -10,6 +10,7 @@ public class AdminStoryBeans {
 	private int eid;
 	private String next_title;
 	
+	// このストーリーを最後に編集した管理者のデータを保持
 	private String admin_number;
 	private String responsibility;
 	private String contact;
@@ -71,11 +72,11 @@ public class AdminStoryBeans {
 		this.contact = contact;
 	}
 	
-	public OffsetDateTime getEdtingDate() {
+	public OffsetDateTime getEditingDate() {
         return editing_date;
     }
 	
-    public void setEdtingDate(Object editing_date) {    	
+    public void setEditingDate(Object editing_date) {    	
     	this.editing_date = (OffsetDateTime) editing_date;
     }
 

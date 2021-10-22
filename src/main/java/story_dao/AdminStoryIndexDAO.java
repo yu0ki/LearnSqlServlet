@@ -63,7 +63,7 @@ public class AdminStoryIndexDAO {
                 	for (int i = 0; i < preASB.size(); i++) {
                 		if (preASB.get(i).getNextTitle() == asb.getTitle()) {
                 			returnASB.add(preASB.get(i));
-                			System.out.println(asb.getTitle()); 
+//                			System.out.println(asb.getTitle()); 
                 			preASB.remove(i);
                 			stopflag = true;
                 			break;
