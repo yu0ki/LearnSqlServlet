@@ -53,10 +53,11 @@ public class AdminStoryIndexDAO {
                 // 以下で頑張ってソート
                 if (asb.getNextTitle() == null) {
                 	returnASB.add(asb);
-                	System.out.println(asb.getTitle());                }
+//                	System.out.println(asb.getTitle());   
+                }
                 else if (asb.getNextTitle().equals(returnASB.get(returnASB.size()-1).getTitle())) {
                 	returnASB.add(asb);
-                	System.out.println(asb.getTitle()); 
+//                	System.out.println(asb.getTitle()); 
                 } else {
                 	boolean stopflag = false;
                 	for (int i = 0; i < preASB.size(); i++) {

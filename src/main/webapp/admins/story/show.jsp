@@ -10,11 +10,22 @@
 	
 	
 		<jsp:include page="/templates/header_admin.jsp" flush="true" />
-
-		<div class="row"><h3>ストーリー詳細</h3></div>
 		
 		<!-- 該当のストーリーを検索 -->
 		<% beans.AdminStoryBeans asb = story_dao.AdminStoryShowDAO.findStory(request.getParameter("title")); %>
+		
+		<div class="row py-3">
+			<div class="col-4"><h3>ストーリー詳細</h3> </div>
+			<div class="col-5"></div>
+			<div class="col-3">
+				<a href="/LearnSqlServlet/admins/story/edit?title=<%= asb.getTitle() %>" class="btn btn-success">編集する</a>
+			</div>
+			
+		</div>
+		
+		
+		
+		
 		
 		<table class="table">
 			<tr>
