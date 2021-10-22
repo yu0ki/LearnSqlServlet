@@ -36,7 +36,7 @@ public class SignUpServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/users/signup.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/users/signup.jsp");
 		dispatcher.forward(request,response);
 	}
 

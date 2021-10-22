@@ -32,7 +32,7 @@ public class UserHomeServlet extends HttpServlet {
 		// url 直打ち防止フィルターがここで働きます。encoding: utf-8フィルターも働きます
 //		System.out.println(request.getSession(false));
 //		response.getWriter().append("user_home Served at: ").append(((HttpServletRequest) request).getContextPath());
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/users/user_home.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/users/user_home.jsp");
 		dispatcher.forward(request,response);
 	}
 

@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 
-	<jsp:include page="/WEB-INF/templates/head.jsp" flush="true" />
+	<jsp:include page="/templates/head.jsp" flush="true" />
 	
 	
 	
-		<jsp:include page="/WEB-INF//templates/headerout.jsp" flush="true" />
+		<jsp:include page="/templates/headerout.jsp" flush="true" />
 		
 		<form action="./sign_up" method="post">
 		<div class="field py-3">
@@ -26,5 +26,5 @@
 		</p>
 		
 	
-		<jsp:include page="/WEB-INF/templates/footer.jsp" flush="true" />
+		<jsp:include page="/templates/footer.jsp" flush="true" />
 </html>

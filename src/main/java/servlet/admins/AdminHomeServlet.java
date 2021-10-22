@@ -28,7 +28,7 @@ public class AdminHomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admins/admin_home.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/admin_home.jsp");
 		dispatcher.forward(request,response);
 	}
 

@@ -32,7 +32,7 @@ public class AdminAccountEditServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admins/account_edit.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/account_edit.jsp");
 		dispatcher.forward(request,response);
 	}
 

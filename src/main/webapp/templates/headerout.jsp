@@ -13,7 +13,7 @@
         	<li><a href = "/LearnSqlServlet/home" class="nav-link text-light">ホーム</a></li>
       		<li><a href = "/LearnSqlServlet/home" class="nav-link text-light">このサイトについて</a></li>
       		<li><a href = "/LearnSqlServlet/log_in" class="nav-link text-light">ログイン</a></li>
-      		<li><a href = "/LearnSqlServlet/sing_in" class="nav-link text-light">新規登録</a></li>
+      		<li><a href = "/LearnSqlServlet/sign_up" class="nav-link text-light">新規登録</a></li>
         </ul>
       </div>
     </div>

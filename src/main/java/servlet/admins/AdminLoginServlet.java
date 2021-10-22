@@ -35,7 +35,7 @@ public class AdminLoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/admins/login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/login.jsp");
 		dispatcher.forward(request,response);
 	}
 

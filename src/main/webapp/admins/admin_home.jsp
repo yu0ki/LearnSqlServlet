@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 <html>
 
-	<jsp:include page="/WEB-INF/templates/head.jsp" flush="true" />
+	<jsp:include page="/templates/head.jsp" flush="true" />
 	
 	
 	
 	
 	
-		<jsp:include page="/WEB-INF/templates/header_admin.jsp" flush="true" />
+		<jsp:include page="/templates/header_admin.jsp" flush="true" />
 
 		<div class="row"><h3>管理者情報</h3></div>
 		<div class="row">			
@@ -58,5 +58,5 @@
 		</div>
 		
 	
-		<jsp:include page="/WEB-INF/templates/footer.jsp" flush="true" />
+		<jsp:include page="/templates/footer.jsp" flush="true" />
 </html>
