@@ -24,7 +24,9 @@
 			<%for(int i = asb_list.size() - 1; i >= 0; i--){%>
 		        <% beans.AdminStoryBeans asb = asb_list.get(i);%>
 		        <tr>
-		            <td><%= asb.getTitle() %></td>
+		            <td>
+		            	<a href="/LearnSqlServlet/admins/story/show.jsp?title=<%= asb.getTitle() %>"><%= asb.getTitle() %></a>
+		            </td>
 		        </tr>
 		    <% } %>
 			
