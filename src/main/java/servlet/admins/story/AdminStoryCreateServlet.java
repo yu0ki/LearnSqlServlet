@@ -13,20 +13,19 @@ import javax.servlet.http.HttpSession;
 
 import beans.AdminAccountBeans;
 import beans.AdminStoryBeans;
-import story_dao.AdminStoryEditDAO;
-import story_dao.AdminStoryShowDAO;
+import story_dao.AdminStoryCreateDAO;
 
 /**
  * Servlet implementation class AdminStoryEditServlet
  */
-@WebServlet("/admins/story/edit")
-public class AdminStoryEditServlet extends HttpServlet {
+@WebServlet("/admins/story/create")
+public class AdminStoryCreateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminStoryEditServlet() {
+    public AdminStoryCreateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,7 +36,7 @@ public class AdminStoryEditServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/story/edit.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/story/create.jsp");
 		dispatcher.forward(request,response);
 	}
 
@@ -46,25 +45,36 @@ public class AdminStoryEditServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// urlのパラメーターから更新対象のストーリータイトル(旧バージョン)取得
-		String title = request.getParameter("title");	
-		System.out.println("ases dopost title = " + title);
+		
 		
 		// ユーザーによる入力値
 		String new_title = request.getParameter("new_title");
 		String new_sentence = request.getParameter("new_sentence");
 		String new_next_title = request.getParameter("new_next_title");
-		int new_eid = Integer.parseInt(request.getParameter("new_eid"));
+		int new_eid = 0;
+		
+		// asb作成・入力値をセット
+				AdminStoryBeans asb = new AdminStoryBeans();
+				asb.setTitle(new_title);
+				asb.setSentence(new_sentence);
+				asb.setNextTitle(new_next_title);
+				
+		try {
+			new_eid = Integer.parseInt(request.getParameter("new_eid"));
+			asb.setEid(new_eid);
+		} catch (Exception e) {
+			// parseIntできなかったときは何もセットしない
+			
+		}
 		
 		
-		// 貰ったタイトルからasb作成
-		AdminStoryBeans asb = AdminStoryShowDAO.findStory(title);
+		
 		// sessionからaab取得
 		HttpSession session = request.getSession(false);
 		AdminAccountBeans aab = (AdminAccountBeans) session.getAttribute("admin");	
 		// 更新作業 by DAO
 		try {
-			AdminStoryEditDAO.editStory(asb, aab, new_title, new_sentence, new_eid, new_next_title);
+			AdminStoryCreateDAO.createStory(asb, aab, new_title, new_sentence, new_eid, new_next_title);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

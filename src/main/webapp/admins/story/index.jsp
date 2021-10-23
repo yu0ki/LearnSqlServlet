@@ -11,7 +11,11 @@
 	
 		<jsp:include page="/templates/header_admin.jsp" flush="true" />
 
-		<div class="row"><h3>ストーリー一覧</h3></div>
+		<div class="row py-3">
+			<div class="col-4"><h3>ストーリー一覧</h3></div>
+			<div class="col-5"></div>
+			<div><a href="/LearnSqlServlet/admins/story/create.jsp" class="btn btn-success">新規作成</a></div>
+		</div>
 		
 		<% story_dao.AdminStoryIndexDAO asid = new story_dao.AdminStoryIndexDAO();  %>
 		<% java.util.List<beans.AdminStoryBeans> asb_list = asid.findAllStory(); %>

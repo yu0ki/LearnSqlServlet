@@ -40,12 +40,24 @@
 			
 			<tr>
 				<th class="bg-light">問題(後日実装)</th>
-				<td><%= asb.getEid() %></td>
+				<td>
+					<% if (asb.getEid() != 0) { %>
+						<%= asb.getEid() %>
+					<% } else { %>
+						あとで決める
+					<% } %>
+				</td>
 			</tr>
 			
 			<tr>
 				<th class="bg-light">次のストーリーのタイトル</th>
-				<td><%= asb.getNextTitle() %></td>
+				<td>
+					<% if (asb.getNextTitle() == null) { %>
+						あとで決める
+					<% } else { %>
+						<%= asb.getNextTitle() %>
+					<% } %>
+				</td>
 			</tr>
 			
 			<% beans.AdminAccountBeans aab = new beans.AdminAccountBeans(); %>
