@@ -16,9 +16,12 @@
 		
 		<div class="row py-3">
 			<div class="col-4"><h3>ストーリー詳細</h3> </div>
-			<div class="col-5"></div>
-			<div class="col-3">
+			<div class="col-4"></div>
+			<div class="col-2">
 				<a href="/LearnSqlServlet/admins/story/edit?title=<%= asb.getTitle() %>" class="btn btn-success">編集する</a>
+			</div>
+			<div class="col-2">
+				<a href="/LearnSqlServlet/admins/story/delete?title=<%= asb.getTitle() %>" class="btn btn-danger">削除する</a>
 			</div>
 			
 		</div>
