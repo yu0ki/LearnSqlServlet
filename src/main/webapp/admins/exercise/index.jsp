@@ -14,7 +14,7 @@
 		<div class="row py-3">
 			<div class="col-4"><h3>問題一覧</h3></div>
 			<div class="col-5"></div>
-			<div><a href="/LearnSqlServlet/admins/story/create.jsp" class="btn btn-success">新規作成</a></div>
+			<div><a href="/LearnSqlServlet/admins/exercise/create.jsp" class="btn btn-success">新規作成</a></div>
 		</div>
 		
 		<% exercise_dao.AdminExerciseIndexDAO aeid = new exercise_dao.AdminExerciseIndexDAO();  %>
@@ -30,7 +30,7 @@
 		        <% beans.AdminExerciseBeans aeb = aeb_list.get(i);%>
 		        <tr class="row">
 		            <td class="col-2">
-		            	<a href="/LearnSqlServlet/admins/exercise/show.jsp?title=<%= aeb.getEid() %>"><%= aeb.getEid() %></a>
+		            	<a href="/LearnSqlServlet/admins/exercise/show.jsp?eid=<%= aeb.getEid() %>"><%= aeb.getEid() %></a>
 		            </td>
 		            
 		            
