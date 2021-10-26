@@ -1,5 +1,5 @@
 
-package servlet.admins.story;
+package servlet.admins.exercise;
 
 import java.io.IOException;
 
@@ -12,21 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.AdminAccountBeans;
-import beans.AdminStoryBeans;
-import story_dao.AdminStoryEditDAO;
-import story_dao.AdminStoryShowDAO;
+import beans.AdminExerciseBeans;
+import exercise_dao.AdminExerciseEditDAO;
+import exercise_dao.AdminExerciseShowDAO;
 
 /**
- * Servlet implementation class AdminStoryEditServlet
+ * Servlet implementation class AdminExerciseEditServlet
  */
-@WebServlet("/admins/story/edit")
-public class AdminStoryEditServlet extends HttpServlet {
+@WebServlet("/admins/exercise/edit")
+public class AdminExerciseEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminStoryEditServlet() {
+    public AdminExerciseEditServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,7 +37,7 @@ public class AdminStoryEditServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/story/edit.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/exercise/edit.jsp");
 		dispatcher.forward(request,response);
 	}
 
@@ -46,35 +46,32 @@ public class AdminStoryEditServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// urlのパラメーターから更新対象のストーリータイトル(旧バージョン)取得
-		String title = request.getParameter("title");	
+		// urlのパラメーターから更新対象の問題id取得
+		int eid = Integer.parseInt(request.getParameter("eid"));	
 //		System.out.println("ases dopost title = " + title);
 		
 		// ユーザーによる入力値
-		String new_title = request.getParameter("new_title");
 		String new_sentence = request.getParameter("new_sentence");
-		String new_next_title = request.getParameter("new_next_title");
-		int new_eid = Integer.parseInt(request.getParameter("new_eid"));
+		String new_answer = request.getParameter("new_answer");
 		
 		
-		// 貰ったタイトルからasb作成
-		AdminStoryBeans asb = AdminStoryShowDAO.findStory(title);
+		// 貰ったeidからaeb作成
+		AdminExerciseBeans aeb = AdminExerciseShowDAO.findExercise(eid);
 		// sessionからaab取得
 		HttpSession session = request.getSession(false);
 		AdminAccountBeans aab = (AdminAccountBeans) session.getAttribute("admin");	
 		// 更新作業 by DAO
 		try {
-			AdminStoryEditDAO.editStory(asb, aab, new_title, new_sentence, new_eid, new_next_title);
+			AdminExerciseEditDAO.editExercise(aeb, aab, new_sentence, new_answer);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/story/index.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admins/exercise/index.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
-//		System.out.println("/LearnSqlServlet/admins/story/show.jsp?title=" + new_title);
 		
-		response.sendRedirect("/LearnSqlServlet/admins/story/index.jsp");
+		response.sendRedirect("/LearnSqlServlet/admins/exercise/index.jsp");
 	}
 
 }

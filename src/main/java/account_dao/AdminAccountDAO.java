@@ -39,9 +39,9 @@ public class AdminAccountDAO {
 
            
             ps.setString(1, aab.getAdminNumber());
-            System.out.println(aab.getAdminNumber());
+//            System.out.println(aab.getAdminNumber());
             ps.setString(2, aab.getResponsibility());
-            System.out.println(aab.getResponsibility());
+//            System.out.println(aab.getResponsibility());
 //            System.out.println(sql);
 
             ResultSet rs = ps.executeQuery();

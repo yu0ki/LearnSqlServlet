@@ -61,8 +61,8 @@ public class AdminLoginServlet extends HttpServlet {
     	
     	// アカウントの有無を検索
         // 検索したアカウント情報を取得
-        AdminAccountDAO aa_dao = new AdminAccountDAO();
-        AdminAccountBeans returnAAb = aa_dao.findAdminAccount(aab);
+//        AdminAccountDAO aa_dao = new AdminAccountDAO();
+        AdminAccountBeans returnAAb = AdminAccountDAO.findAdminAccount(aab);
 //        System.out.println(returnAAb == null);
        
         
