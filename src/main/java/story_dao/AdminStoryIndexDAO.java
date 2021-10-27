@@ -55,6 +55,9 @@ public class AdminStoryIndexDAO {
                 	returnASB.add(asb);
 //                	System.out.println(asb.getTitle());   
                 }
+                else if (returnASB.size() == 0) {
+                	preASB.add(asb);
+                }
                 else if (asb.getNextTitle().equals(returnASB.get(returnASB.size()-1).getTitle())) {
                 	returnASB.add(asb);
 //                	System.out.println(asb.getTitle()); 
