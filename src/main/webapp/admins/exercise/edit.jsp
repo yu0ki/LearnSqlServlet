@@ -24,7 +24,7 @@
 		<form action="./edit?eid=<%= eid %>" method="post">
 			<table class="table">
 				
-				<% beans.AdminExerciseBeans aeb = AdminExerciseShowDAO.findExercise(eid); %>
+				<% beans.AdminExerciseBeans aeb = exercise_dao.AdminExerciseShowDAO.findExercise(eid); %>
 				<tr>
 					<th class="bg-light">問題文</th>
 					<td>

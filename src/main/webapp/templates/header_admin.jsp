@@ -13,7 +13,7 @@
         	<li><a href = "/LearnSqlServlet/admins/home" class="nav-link text-light">マイページ</a></li>
       		<li><a href = "/LearnSqlServlet/admins/story/index.jsp" class="nav-link text-light">ストーリー</a></li>
       		<li><a href = "/LearnSqlServlet/admins/exercise/index.jsp" class="nav-link text-light">問題</a></li>
-      		<li><a href = "/LearnSqlServlet/log_in" class="nav-link text-light">告知</a></li>
+      		<li><a href = "/LearnSqlServlet/admins/announcement/index.jsp" class="nav-link text-light">告知</a></li>
       		<li><a href = "/LearnSqlServlet/admins/log_out" class="nav-link text-light">ログアウト</a></li>
         </ul>
       </div>
