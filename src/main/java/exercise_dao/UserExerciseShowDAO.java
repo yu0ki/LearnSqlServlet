@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
 
 import beans.UserExerciseBeans;
 
@@ -47,17 +48,21 @@ public class UserExerciseShowDAO {
 	            	return null;
 	            }
 	            
-	            // 問題の閲覧状態を取得
-	            String sql_for_is_opened = "SELECT is_opened FROM view_exercises WHERE eid = ? AND uid = ?";
-                PreparedStatement ps_for_is_opened = con.prepareStatement(sql_for_is_opened);
-                ps_for_is_opened.setInt(1, eid);
-                ps_for_is_opened.setInt(2, uid);
-                ResultSet rs_for_is_opened = ps_for_is_opened.executeQuery();
-                if (rs_for_is_opened.next()) {
-                	returnUEB.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
-                } else {
-                	returnUEB.setIsOpened(false);
-                }
+	            // 問題の解答状況を取得
+	            // 最新の解答履歴だけbeansに保存することにする
+	            String sql_for_answerings = "SELECT * FROM answerings "
+	            		+ "WHERE eid = ? AND uid = ? AND challenge_date = (SELECT MAX(challenge_date) FROM answerings WHERE eid = ?  AND uid = ?)";
+                PreparedStatement ps_for_answerings = con.prepareStatement(sql_for_answerings);
+                ps_for_answerings.setInt(1, eid);
+                ps_for_answerings.setInt(2, uid);
+                ps_for_answerings.setInt(3, eid);
+                ps_for_answerings.setInt(4, uid);
+                ResultSet rs_for_answerings = ps_for_answerings.executeQuery();
+                if (rs_for_answerings.next()) {
+                	returnUEB.setChallengeDate(rs_for_answerings.getObject("challenge_date", OffsetDateTime.class));
+                	returnUEB.setMyAnswer(rs_for_answerings.getString("answer"));
+                	returnUEB.setIsCorrect(rs_for_answerings.getBoolean("is_correct"));
+                } 
 	            
 	            
 	            

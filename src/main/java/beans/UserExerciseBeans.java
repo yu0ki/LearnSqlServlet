@@ -1,5 +1,7 @@
 package beans;
 
+import java.time.OffsetDateTime;
+
 public class UserExerciseBeans {
 	// ユーザーが問題をいじるために必要なデータを全部含んだBeansを作る
 	
@@ -8,7 +10,10 @@ public class UserExerciseBeans {
 	private String answer;
 	
 	// 閲覧状態を取得
-	private boolean is_opened;
+	private OffsetDateTime challenge_date;
+	private String my_answer;
+	private boolean is_correct;
+	
 	
 	public int getEid() {
 		return eid;
@@ -35,12 +40,28 @@ public class UserExerciseBeans {
 		this.answer = answer;
 	}
 	
-	public boolean getIsOpened() {
-		return is_opened;
+	public String getMyAnswer() {
+		return my_answer;
 	}
 	
-	public void setIsOpened(boolean is_opened) {
-		this.is_opened = is_opened;
+	public void setMyAnswer(String my_answer) {
+		this.my_answer = my_answer;
+	}
+	
+	public OffsetDateTime getChallengeDate() {
+        return challenge_date;
+    }
+	
+    public void setChallengeDate(Object challenge_date) {    	
+    	this.challenge_date = (OffsetDateTime) challenge_date;
+    }
+	
+	public boolean getIsCorrect() {
+		return is_correct;
+	}
+	
+	public void setIsCorrect(boolean is_correct) {
+		this.is_correct = is_correct;
 	}
 
 }
