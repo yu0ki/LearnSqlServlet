@@ -42,10 +42,10 @@
 			</tr>
 			
 			<tr>
-				<th class="bg-light">問題(後日実装)</th>
+				<th class="bg-light">問題</th>
 				<td>
 					<% if (asb.getEid() != 0) { %>
-						<%= asb.getEid() %>
+						<a href="/LearnSqlServlet/admins/exercise/show.jsp?eid=<%= asb.getEid() %>"><%= asb.getEid() %></a>
 					<% } else { %>
 						あとで決める
 					<% } %>

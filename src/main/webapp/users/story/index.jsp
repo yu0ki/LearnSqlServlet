@@ -31,7 +31,7 @@
 		            	<% if (!usb.getIsOpened()) { %>
 		            		<span class="text-danger">NEW!</span>
 		            	<% } %>
-		            	<a href="/LearnSqlServlet/user/story/show.jsp?title=<%= usb.getTitle() %>"><%= usb.getTitle() %></a>
+		            	<a href="/LearnSqlServlet/users/story/show.jsp?title=<%= usb.getTitle() %>"><%= usb.getTitle() %></a>
 		            </td>
 		        </tr>
 		    <% } %>
