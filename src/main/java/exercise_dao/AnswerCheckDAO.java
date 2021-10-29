@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import beans.UserExerciseBeans;
@@ -77,76 +76,138 @@ public class AnswerCheckDAO {
 					PreparedStatement prepare_to_check_ps = con.prepareStatement(create_islands);
 					prepare_to_check_ps.executeUpdate();
 					
-					// 採点して結果をresultに格納(正解のときtrue)
-			    	boolean result;
+					// 採点して結果をis_correctに格納(正解のときtrue)
+			    	boolean is_correct = true;
 			    	
 			    	// ユーザーの入力を実行
 		            PreparedStatement my_ps= con.prepareStatement(my_answer);
 		            ResultSet my_rs = my_ps.executeQuery();
+		            // my_rsの内容を「実行結果」画面に返すために、2次元配列result_arrayに格納する
+		            ArrayList<ArrayList<String>> result_array = new ArrayList<>();
+		            // answer_rsの内容も、2次元配列result_arrayに格納する
+		            ArrayList<ArrayList<String>> answer_array = new ArrayList<>();
 		            
 		            // 模範解答を実行
 		            PreparedStatement answer_ps = con.prepareStatement(ueb.getAnswer());
 		            ResultSet answer_rs = answer_ps.executeQuery();
 		            
 		            // 答えに含まれる属性一覧取得
-		            List<String> fields = new ArrayList<>();
+		            ArrayList<String> fields = new ArrayList<>();
 		            ResultSetMetaData rsmd= answer_rs.getMetaData();
 		            
 		            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
 		            	   fields.add(rsmd.getColumnName(i));
 		            }
 		            
-		            // 2つの実行結果を比較して採点
-		            while (true) {
-		            	// まずはnext()して読み込んでいない要素があるか確認
-		            	boolean my_next = my_rs.next();
-		            	boolean answer_next = answer_rs.next();
-		            	if (my_next == false && answer_next == false) {
-		            		// どちらも次の要素が見つからないなら採点終了
-		            		System.out.println("採点1");
-		            		result = true;
-		            		break;
-		            	}
-		            	else if (my_next == answer_next) {
-		            		// レコードを比較し、正しいことを確認
-		            		boolean break_flag = false;
-		            		for (int i = 0; i < fields.size(); i++) {
-		            			String my = my_rs.getObject(fields.get(i)).toString();
-		            			String an = answer_rs.getObject(fields.get(i)).toString();
-		            			if (!my.equals(an)) {
-		            				System.out.println(my_rs.getObject(fields.get(i)));
-		            				System.out.println(answer_rs.getObject(fields.get(i)));
-		            				break_flag = true;
-		            				break;
-		            			} 
-		            		}
-		            		
-		            		System.out.println("採点2");
-		            		
-		            		if (break_flag) {
-		            			result = false;
-		            			break;
-		            		}
-		            		
-		            	} else {
-		            		// 上記に引っかからない場合、2つの実行結果は同じでない
-		            		// よって不正解とみなす
-		            		System.out.println("採点3");
-		            		result = false;
-		            		break;
-		            	}
+		            // 自分の解答に含まれる属性一覧取得
+		            ArrayList<String> my_fields = new ArrayList<>();
+		            ResultSetMetaData my_rsmd= my_rs.getMetaData();
+		            
+		            for (int i = 1; i <= my_rsmd.getColumnCount(); i++) {
+		            	   my_fields.add(my_rsmd.getColumnName(i));
 		            }
+		            
+		         
+		            
+		         // まずは二つの結果の属性値一覧が一致するかをチェック
+	            	// 1. fieldsがmy_fieldsに含まれるかチェック
+	            	ArrayList<String> field_checker = new ArrayList<String>();
+	            	 for(String a : fields){
+	                     for(String b : my_fields){
+	                         if(a.equals(b)){
+	                             field_checker.add(a);
+	                             break;
+	                         }
+	                     }
+	                 }
+	            	 
+	            	 if(!field_checker.equals(fields)) {
+	            		 is_correct = false;
+	            		 System.out.println("1");
+	            	 }
+	            	 
+	            	 field_checker.clear();
+	            	 // 2. my_fieldsがfieldsに含まれるかチェック
+	            	 for(String a : my_fields){
+	                     for(String b : fields){
+	                         if(a.equals(b)){
+	                             field_checker.add(a);
+	                             break;
+	                         }
+	                     }
+	                 }
+	            	 
+	            	 if(!field_checker.equals(my_fields)) {
+	            		 is_correct = false; 
+	            		 System.out.println("2");
+	            	 }
+	            	 
+	            	 
+	            	 
+	            	 // is_correctがfalseになっていない場合(属性値集合が等しかった場合)
+	            	 if (is_correct) {
+	            		// result_arrayの1行目にmy_fieldsをセット
+	 		            result_array.add(my_fields);
+	 		            
+	 		        // answer_arrayの1行目にmy_fieldsをセット
+			            answer_array.add(my_fields);
+	            		 
+		            	 // 模範解答の実行結果をArrayListに保持
+		            	 // このとき、のちの比較のために属性一覧にはmy_fieldsを使う
+		            	 while(answer_rs.next()) {
+				            	// result_arrayに入れる用のリスト
+				             	ArrayList<String> tmp = new ArrayList<>();
+				            	for(int i = 0; i < my_fields.size(); i++) {
+				            		tmp.add(answer_rs.getObject(my_fields.get(i)).toString());
+				            	}
+				            	answer_array.add(tmp);
+				          }
+		            	 
+		            	 
+				         // ユーザーの実行結果をArrayListに保存
+		           		 while(my_rs.next()) {
+			            	// result_arrayに入れる用のリスト
+			             	ArrayList<String> tmp = new ArrayList<>();
+			            	for(int i = 0; i < my_fields.size(); i++) {
+			            		tmp.add(my_rs.getObject(my_fields.get(i)).toString());
+			            	}
+			            	result_array.add(tmp);
+			             } 
+		           		 
+		           		 // 2つのリストを比較
+		           		 if (answer_array.size() == result_array.size()) {
+		           			 for(int i = 0; i < result_array.size(); i++) {
+		           				 if (is_correct) {
+		           					 break;
+		           				 }
+		           				 
+		           				 for (int j = 0; j < result_array.get(i).size(); j++) {
+		           					 if (!result_array.get(i).get(i).equals(answer_array.get(i).get(j))) {
+		           						 is_correct = false;
+		           						 System.out.println("3");
+		           						 System.out.println(result_array);
+		           						 System.out.println(answer_array);
+		           						 break;
+		           					 }
+		           				 }
+		           			 }
+		           		 } else {
+		           			 is_correct = false;
+		           			 System.out.println("4");
+		           		 }
+	            	 }
+	            	
+		            
+		           
+		            
+
 
 		           
 		            // 戻り値をmapにセット
-//		            if (rs.next()) {
-			            returnMap.put("is_correct", result);
-			            returnMap.put("result", my_rs);
-			            returnMap.put("fields", fields);
-//		            } else {
-		            	// 問題が見つからなかった場合はnullを返す
-//		            	return null;
-//		            }
+			            returnMap.put("is_correct", is_correct);
+			            returnMap.put("result", result_array);
+			            returnMap.put("my_answer", my_answer);
+//		         
 		            
 		            // 問題の解答状況を更新
 		            // 最新の解答履歴だけbeansに保存することになっていたbeansも更新
@@ -157,7 +218,7 @@ public class AnswerCheckDAO {
 	                ps_for_answerings.setInt(1, ueb.getEid());
 	                ps_for_answerings.setInt(2, uid);
 	                ps_for_answerings.setString(3, my_answer);
-	                ps_for_answerings.setBoolean(4, result);
+	                ps_for_answerings.setBoolean(4, is_correct);
 	                
 	                String sql_for_return = "SELECT * FROM answerings WHERE eid = ? AND uid = ? AND challenge_date = (SELECT MAX(challenge_date) FROM answerings WHERE eid = ?  AND uid = ?)";
 	                PreparedStatement ps_for_return = con.prepareStatement(sql_for_return);
@@ -181,6 +242,7 @@ public class AnswerCheckDAO {
 					e.printStackTrace();
 					returnMap.put("result", e.getMessage());
 					returnMap.put("is_correct", false);
+		            returnMap.put("my_answer", my_answer);
 				} finally {
 					try {
 						if (con != null) {

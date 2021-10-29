@@ -57,7 +57,13 @@
 			<form action="./show?eid=<%= eid %>" method="post" class="col-6">
 				<div class="field py-3">
 					<label class="font-weight-bold">解答</label><br>
-					<textarea  name="my_answer" required cols="70" rows="10" class="form-control"></textarea>
+					<textarea  name="my_answer" required cols="70" rows="10" class="form-control">
+						<% java.util.Map<String, Object> result_map = (java.util.HashMap<String, Object>) request.getSession(false).getAttribute("result_map"); %>
+						<% System.out.println("request.getSession(false) = " + request.getSession(false)); %>
+						<% if(result_map != null) { %>
+							<%= result_map.get("my_answer")  %>
+						<% } %>
+					</textarea>
 				</div>
 					
 				<div class="py-3">
@@ -67,9 +73,32 @@
 			<div class="py-3">
 				<label class="font-weight-bold">実行結果</label><br>
 				<textarea required cols="70" rows="10" class="form-control">
-					<% if (request.getAttribute("result_map") != null) { %>
-						<% java.util.Map <String, Object> result_map = (java.util.HashMap<String, Object>) request.getAttribute("result_map"); %>
-						<% result_map.get("result"); %>
+					<% if (result_map != null) { %>
+						<% if (result_map.get("result") instanceof String) { %>
+							<span class="text-danger">
+								<%= result_map.get("result") %>
+							</span>
+						<% } else if (result_map.get("result") instanceof java.util.ArrayList) { %>
+							<% java.util.ArrayList<java.util.ArrayList<String>> result_array = (java.util.ArrayList<java.util.ArrayList<String>>) result_map.get("result"); %>
+							<table class="table table-bordered">
+								<tr>
+									<% for(int i = 0; i < result_array.get(0).size(); i++) { %>
+										<th class="bg-light"><%= result_array.get(0).get(i) %></th>
+									<% } %>
+								</tr>
+								
+								<% for(int i = 1; i < result_array.size(); i++) { %>
+									<tr>
+										<% for(int j = 0; i < result_array.get(i).size(); j++) { %>
+											<td><%= result_array.get(i).get(j) %></td>
+										<% } %>
+									</tr>
+								<% } %>
+								
+							</table>
+						<% } %>
+					<% } else {%>
+						<% System.out.println("result_map = " + result_map); %>
 					<% } %>
 				</textarea>
 			</div>

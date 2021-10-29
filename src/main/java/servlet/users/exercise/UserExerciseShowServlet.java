@@ -37,9 +37,9 @@ public class UserExerciseShowServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		if (request.getAttribute("result_map") != null) {
-			request.removeAttribute("result_map");
-		}
+//		if (request.getAttribute("result_map") != null) {
+//			request.removeAttribute("result_map");
+//		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/users/exercise/show.jsp");
 		dispatcher.forward(request,response);
 	}
