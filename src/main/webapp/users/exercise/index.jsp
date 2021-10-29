@@ -13,8 +13,6 @@
 
 		<div class="row py-3">
 			<div class="col-4"><h3>問題一覧</h3></div>
-			<div class="col-5"></div>
-			<div><a href="/LearnSqlServlet/admins/exercise/create.jsp" class="btn btn-success">新規作成</a></div>
 		</div>
 		
 		<% exercise_dao.UserExerciseIndexDAO ueid = new exercise_dao.UserExerciseIndexDAO();  %>

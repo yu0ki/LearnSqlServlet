@@ -54,25 +54,26 @@
 		</div>
 		
 		<div class="row py-3">
-			<form action="./show?eid=<%= eid %>" method="post" class="col-6">
+			<form action="./show?eid=<%= eid %>" method="post" class="col-5">
 				<div class="field py-3">
 					<label class="font-weight-bold">解答</label><br>
-					<textarea  name="my_answer" required cols="70" rows="10" class="form-control">
+					
 						<% java.util.Map<String, Object> result_map = (java.util.HashMap<String, Object>) request.getSession(false).getAttribute("result_map"); %>
-						<% System.out.println("request.getSession(false) = " + request.getSession(false)); %>
+						
 						<% if(result_map != null) { %>
-							<%= result_map.get("my_answer")  %>
+							<textarea  name="my_answer" required cols="70" rows="10" class="form-control"><%= result_map.get("my_answer")  %></textarea>
+						<% } else { %>
+							<textarea  name="my_answer" required cols="70" rows="10" class="form-control"></textarea>
 						<% } %>
-					</textarea>
 				</div>
 					
 				<div class="py-3">
 					<input type="submit" value="解答" class="btn btn-success">
 				</div>
 			</form>
-			<div class="py-3">
+			<div class="col-5 py-3">
 				<label class="font-weight-bold">実行結果</label><br>
-				<textarea required cols="70" rows="10" class="form-control">
+				<div class="bordered">
 					<% if (result_map != null) { %>
 						<% if (result_map.get("result") instanceof String) { %>
 							<span class="text-danger">
@@ -89,7 +90,7 @@
 								
 								<% for(int i = 1; i < result_array.size(); i++) { %>
 									<tr>
-										<% for(int j = 0; i < result_array.get(i).size(); j++) { %>
+										<% for(int j = 0; j < result_array.get(i).size(); j++) { %>
 											<td><%= result_array.get(i).get(j) %></td>
 										<% } %>
 									</tr>
@@ -100,9 +101,14 @@
 					<% } else {%>
 						<% System.out.println("result_map = " + result_map); %>
 					<% } %>
-				</textarea>
+				</div>
 			</div>
 		</div>
+		
+		<% if (request.getSession(false).getAttribute("result_map") != null) {
+			request.getSession(false).removeAttribute("result_map");
+			System.out.println("通過しました2");
+		} %>
 		
 	
 		<jsp:include page="/templates/footer.jsp" flush="true" />

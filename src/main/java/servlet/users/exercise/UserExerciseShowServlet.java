@@ -37,8 +37,10 @@ public class UserExerciseShowServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-//		if (request.getAttribute("result_map") != null) {
-//			request.removeAttribute("result_map");
+		System.out.println("通過しました1");
+//		if (request.getSession(false).getAttribute("result_map") != null) {
+//			request.getSession(false).removeAttribute("result_map");
+//			System.out.println("通過しました2");
 //		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/users/exercise/show.jsp");
 		dispatcher.forward(request,response);
@@ -49,6 +51,14 @@ public class UserExerciseShowServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		// 採点結果をjspに受け渡すためにsession に保存
+				// もし以前にも問題を解いていた場合はgetに飛ばす
+//				if (request.getSession(false).getAttribute("result_map") != null) {
+//					doGet(request,response);
+//					return;
+//				}
+				
 		
 		
 		// ユーザーによる入力値
@@ -65,16 +75,13 @@ public class UserExerciseShowServlet extends HttpServlet {
 		for (String key : result_map.keySet()) {
 	        System.out.println(key + ":" + result_map.get(key));
 	    }
-		// 採点結果をjspに受け渡すためにsession に保存
-		// もし以前にも問題を解いていた場合はresult_mapをリセット
-		if (request.getAttribute("result_map") != null) {
-			request.removeAttribute("result_map");
-		}
-		request.setAttribute("result_map", result_map);
+		
+		request.getSession(false).setAttribute("result_map", result_map);
 		
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/users/exercise/show.jsp");
-		dispatcher.forward(request,response);
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/users/exercise/show.jsp");
+//		dispatcher.forward(request,response);
+		response.sendRedirect("/LearnSqlServlet/users/exercise/show.jsp?eid="+eid);
 	}
 
 }
