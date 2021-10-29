@@ -54,7 +54,7 @@
 		</div>
 		
 		<div class="row py-3">
-			<form action="./show?eid=<%= eid %>" method="post" class="col-5">
+			<form action="./show?eid=<%= eid %>" method="post" class="col-6">
 				<div class="field py-3">
 					<label class="font-weight-bold">解答</label><br>
 					

@@ -44,10 +44,21 @@
 				</tr>
 				
 				<tr>
-					<th class="bg-light">問題(後日実装)</th>
+					<th class="bg-light">問題</th>
 					<td>
 						<select name="new_eid" class="form-control">
-							<option value=<%= asb.getEid() %>><%= asb.getEid() %></option>										
+							<% if (asb.getEid() == 0) { %>
+								<option value="あとで決める">あとで決める</option>	
+							<% } else { %>
+								<option value=<%= asb.getEid() %>><%= asb.getEid() %></option>	
+							<% } %>
+							
+							<option value="あとで決める">あとで決める</option>	
+							<% exercise_dao.AdminExerciseIndexDAO aeid = new exercise_dao.AdminExerciseIndexDAO(); %>
+							<% java.util.List<beans.AdminExerciseBeans> aebs = aeid.findAllExercise(); %>
+							<% for(int i = aebs.size() -1; i >=0; i--) { %>
+								<option value=<%= aebs.get(i).getEid() %>><%= aebs.get(i).getEid() %></option>
+							<% } %>									
 						</select>
 					</td>
 				</tr>
@@ -56,7 +67,14 @@
 					<th class="bg-light">次のストーリーのタイトル</th>
 					<td>
 						<select name="new_next_title" class="form-control">
-							<option value=<%= asb.getNextTitle() %>><%= asb.getNextTitle() %></option>
+							<% if (asb.getNextTitle() == null) { %>
+								<option value="あとで決める">あとで決める</option>	
+							<% } else { %>
+								<option value=<%= asb.getNextTitle() %>><%= asb.getNextTitle() %></option>	
+							<% } %>
+							
+							
+							<option value="あとで決める">あとで決める</option>
 							
 							<% story_dao.AdminStoryIndexDAO asid = new story_dao.AdminStoryIndexDAO(); %>
 							<% java.util.List<beans.AdminStoryBeans> asbs = asid.findAllStory(); %>

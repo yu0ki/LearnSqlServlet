@@ -56,56 +56,39 @@ public class UserStoryIndexDAO {
                 ps_for_is_opened.setInt(2, uid);
                 ResultSet rs_for_is_opened = ps_for_is_opened.executeQuery();
                 if (rs_for_is_opened.next()) {
-                	System.out.println(usb.getTitle());
+//                	System.out.println(usb.getTitle());
                 	usb.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
                 } else {
                 	usb.setIsOpened(false);
                 }
                 
-                
-                // returnUSBの中身は、ストーリーを最終章から順番に格納させる。
-                // 以下で頑張ってソート
+             // まずは一番最後のストーリー(next_title == null)を探す
                 if (usb.getNextTitle() == null) {
                 	returnUSB.add(usb);
-//                	System.out.println(usb.getTitle());   
-                }
-                else if (returnUSB.size() == 0) {
-                	preUSB.add(usb);
-                }
-                else if (usb.getNextTitle().equals(returnUSB.get(returnUSB.size()-1).getTitle())) {
-                	returnUSB.add(usb);
-//                	System.out.println(usb.getTitle()); 
                 } else {
-                	boolean stopflag = false;
-                	for (int i = 0; i < preUSB.size(); i++) {
-                		if (preUSB.get(i).getNextTitle() == usb.getTitle()) {
-                			returnUSB.add(preUSB.get(i));
-//                			System.out.println(usb.getTitle()); 
-                			preUSB.remove(i);
-                			stopflag = true;
-                			break;
-                		}
-                	}
-                	if (!stopflag) {
-                		preUSB.add(usb);
-//                		System.out.println("pre : " + usb.getTitle());
-//                		System.out.println("「"+usb.getNextTitle()+"」" + "「"+returnUSB.get(returnUSB.size()-1).getTitle() + "」");
-                		
-                	}
-                }
+                	preUSB.add(usb);
+                }        
                 
+            }  
+            
+            // 次にpreUSBが空になるまで
+            // returnUSBの要素のタイトルと等しいNextTitleを持つpreUSBの要素を探しては
+            // returnUSBの該当の要素の直後に移動させることを繰り返す
+            while(preUSB.size() > 0) {
+            	for(int i = 0; i < returnUSB.size(); i++) {
+            		for(int j = 0; j < preUSB.size(); j++) {
+            			if (returnUSB.get(i).getTitle().equals(preUSB.get(j).getNextTitle())) {
+            				returnUSB.add(i+1, preUSB.get(j));
+            				preUSB.remove(j);
+            			}
+            		}
+            	}
             }
-            
-            if (preUSB.size() != 0) {
-            	returnUSB.addAll(preUSB);
-            }
+                
+              
             
             
             
-//            ストーリーが存在しない場合nullを返す
-//            if (returnUSB.size() == 0) {
-//            	return null;
-//            }
             
         } catch (Exception e) {
 			e.printStackTrace();

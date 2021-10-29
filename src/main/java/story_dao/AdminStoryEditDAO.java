@@ -41,8 +41,18 @@ public class AdminStoryEditDAO {
 	            
 	            ps.setString(1, new_title);
 	            ps.setString(2, new_sentence);
-	            ps.setInt(3, new_eid);
-	            ps.setString(4, new_next_title);
+	            
+	            if (new_eid != 0) {
+	            	ps.setInt(3, new_eid);
+	            } else {
+	            	ps.setObject(3, null);
+	            }
+	            
+	            if (new_next_title.equals("あとで決める")) {
+	            	ps.setObject(4, null);
+	            } else {
+	            	ps.setString(4, new_next_title);
+	            }
 	            
 	            ps.setString(5, asb.getTitle());
 	            ps.setString(6, new_title);

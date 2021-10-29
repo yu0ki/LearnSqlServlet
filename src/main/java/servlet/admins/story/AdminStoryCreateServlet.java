@@ -84,7 +84,18 @@ public class AdminStoryCreateServlet extends HttpServlet {
 		}
 //		System.out.println("/LearnSqlServlet/admins/story/show.jsp?title=" + new_title);
 		
-		response.sendRedirect("/LearnSqlServlet/admins/story/index.jsp");
+		// redirectのときに文字化けするのを防ぐ処理
+				// UTF-8でコーディングされているものを、iso-8859-1に変換
+				byte[] tmp = new String(new_title).getBytes("UTF-8");
+			    String str = new String(tmp, "ISO-8859-1");
+//			    System.out.println(str);
+			    
+			    
+			    
+			    
+//				RequestDispatcher dispatcher = request.getRequestDispatcher("/users/story/show.jsp");
+//				dispatcher.forward(request,response);
+				response.sendRedirect("/LearnSqlServlet/admins/story/show.jsp?title="+str);
 	}
 
 }

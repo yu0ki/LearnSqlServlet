@@ -37,11 +37,16 @@
 				</tr>
 				
 				<tr>
-					<th class="bg-light">問題(後日実装)</th>
+					<th class="bg-light">問題</th>
 					<td>
 						<select name="new_eid" class="form-control" required>
 							<option value="">選択してください</option>	
-							<option value="0">あとで決める</option>									
+							<option value="0">あとで決める</option>	
+							<% exercise_dao.AdminExerciseIndexDAO aeid = new exercise_dao.AdminExerciseIndexDAO(); %>
+							<% java.util.List<beans.AdminExerciseBeans> aebs = aeid.findAllExercise(); %>
+							<% for(int i = aebs.size() -1; i >=0; i--) { %>
+								<option value=<%= aebs.get(i).getEid() %>><%= aebs.get(i).getEid() %></option>
+							<% } %>								
 						</select>
 					</td>
 				</tr>

@@ -41,57 +41,40 @@ public class AdminStoryIndexDAO {
             // 並べ替え用一時記憶リスト
             List<AdminStoryBeans> preASB =  new ArrayList<>();
             
-            while (rs.next()) {
-                // 見つかったアカウント情報を戻り値にセット
+// 
+//            
+//       見つけたストーリーは最終章から順に並べるので、ResultSetから値を取り出しつつ並べ替えも行う     
+//            
+            while(rs.next()) {
+            	// 見つかったアカウント情報を戻り値にセット
             	AdminStoryBeans asb = new AdminStoryBeans();
                 asb.setTitle(rs.getString("title"));
                 asb.setSentence(rs.getString("sentence"));  
                 asb.setEid(rs.getInt("eid"));  
                 asb.setNextTitle(rs.getString("next_title"));  
                 
-                // returnASBの中身は、ストーリーを最終章から順番に格納させる。
-                // 以下で頑張ってソート
+            	// まずは一番最後のストーリー(next_title == null)を探す
                 if (asb.getNextTitle() == null) {
                 	returnASB.add(asb);
-//                	System.out.println(asb.getTitle());   
-                }
-                else if (returnASB.size() == 0) {
-                	preASB.add(asb);
-                }
-                else if (asb.getNextTitle().equals(returnASB.get(returnASB.size()-1).getTitle())) {
-                	returnASB.add(asb);
-//                	System.out.println(asb.getTitle()); 
                 } else {
-                	boolean stopflag = false;
-                	for (int i = 0; i < preASB.size(); i++) {
-                		if (preASB.get(i).getNextTitle() == asb.getTitle()) {
-                			returnASB.add(preASB.get(i));
-//                			System.out.println(asb.getTitle()); 
-                			preASB.remove(i);
-                			stopflag = true;
-                			break;
-                		}
-                	}
-                	if (!stopflag) {
-                		preASB.add(asb);
-//                		System.out.println("pre : " + asb.getTitle());
-//                		System.out.println("「"+asb.getNextTitle()+"」" + "「"+returnASB.get(returnASB.size()-1).getTitle() + "」");
-                		
-                	}
-                }
-                
+                	preASB.add(asb);
+                }         	
             }
             
-            if (preASB.size() != 0) {
-            	returnASB.addAll(preASB);
+            // 次にpreASBが空になるまで
+            // returnASBの要素のタイトルと等しいNextTitleを持つpreASBの要素を探しては
+            // returnASBの該当の要素の直後に移動させることを繰り返す
+            while(preASB.size() > 0) {
+            	for(int i = 0; i < returnASB.size(); i++) {
+            		for(int j = 0; j < preASB.size(); j++) {
+            			if (returnASB.get(i).getTitle().equals(preASB.get(j).getNextTitle())) {
+            				returnASB.add(i+1, preASB.get(j));
+            				preASB.remove(j);
+            			}
+            		}
+            	}
             }
-            
-            
-            
-//            ストーリーが存在しない場合nullを返す
-//            if (returnASB.size() == 0) {
-//            	return null;
-//            }
+
             
         } catch (Exception e) {
 			e.printStackTrace();
