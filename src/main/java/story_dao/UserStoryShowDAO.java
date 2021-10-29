@@ -59,9 +59,9 @@ public class UserStoryShowDAO {
                 if (rs_for_is_opened.next()) {
                 	returnUSB.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
                 } else {
-                	returnUSB.setIsOpened(false);
+                	returnUSB.setIsOpened(true);
                 }
-	            
+//	            
 	            
 	            
 //	            

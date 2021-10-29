@@ -22,8 +22,32 @@
 		<!-- 該当の問題を検索 -->
 		<% beans.UserExerciseBeans ueb = exercise_dao.UserExerciseShowDAO.findExercise(eid, uid); %>
 		
+		<% // 閲覧履歴をつける
+		System.out.println("通過3");
+		if (usb.getIsOpened()) {
+			story_dao.UserStoryViewsDAO.setViewStory(title, uid, true);
+			usb.setIsOpened(true);
+		}%>
+		
 		<div class="row py-3">
-			<div class="col-12"><h3><%= usb.getTitle() %></h3> </div>	
+			<div class="col-9"><h3><%= usb.getTitle() %></h3> </div>	
+			<div class="col-3">
+				<% System.out.println(usb.getIsOpened()); %>
+				<% if (usb.getIsOpened()) { %>
+					<form action="./show" method="get">
+						<input type="hidden" name="title" value="<%= usb.getTitle() %>">
+						<input type="hidden" name="new_is_opened" value="false">
+						<input type="submit" value="未読にする" class="btn btn-secondary">
+					</form>
+				<% } else { %>
+					<form action="./show" method="get">
+						<input type="hidden" name="title" value="<%= usb.getTitle() %>">
+						<input type="hidden" name="new_is_opened" value="true">
+						<input type="submit" value="既読にする" class="btn btn-primary">
+					</form>
+				<% } %>
+				
+			</div>
 		</div>
 		
 		

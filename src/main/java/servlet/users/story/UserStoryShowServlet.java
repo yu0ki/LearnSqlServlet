@@ -17,6 +17,7 @@ import beans.UserStoryBeans;
 import exercise_dao.AnswerCheckDAO;
 import exercise_dao.UserExerciseShowDAO;
 import story_dao.UserStoryShowDAO;
+import story_dao.UserStoryViewsDAO;
 
 /**
  * Servlet implementation class AdminStoryEditServlet
@@ -38,12 +39,16 @@ public class UserStoryShowServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-//		System.out.println("通過しました1");
-//		if (request.getSession(false).getAttribute("result_map") != null) {
-//			request.getSession(false).removeAttribute("result_map");
-//			System.out.println("通過しました2");
-//		}
+		
+		// パラメーターを取得
+		String title = request.getParameter("title");
+		int uid = ((UserAccountBeans) request.getSession(false).getAttribute("user")).getUid();
+		boolean is_opened = Boolean.parseBoolean(request.getParameter("new_is_opened"));	
+		
+		// 閲覧履歴をつける
+		System.out.println("通過1");
+		UserStoryViewsDAO.setViewStory(title, uid, (is_opened || request.getParameter("new_is_opened") == null));
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/users/story/show.jsp");
 		dispatcher.forward(request,response);
 	}
@@ -54,13 +59,8 @@ public class UserStoryShowServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		// 採点結果をjspに受け渡すためにsession に保存
-				// もし以前にも問題を解いていた場合はgetに飛ばす
-//				if (request.getSession(false).getAttribute("result_map") != null) {
-//					doGet(request,response);
-//					return;
-//				}
-				
+		
+		System.out.println("通過2");	
 		
 		
 		// ユーザーによる入力値
