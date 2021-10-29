@@ -73,7 +73,7 @@
 			</form>
 			<div class="col-5 py-3">
 				<label class="font-weight-bold">実行結果</label><br>
-				<div class="bordered">
+				<div>
 					<% if (result_map != null) { %>
 						<% if (result_map.get("result") instanceof String) { %>
 							<span class="text-danger">

@@ -143,11 +143,22 @@ public class AnswerCheckDAO {
 	            	 }
 	            	 
 	            	 
+	            	// ユーザーの実行結果をArrayListに保存
+	            	// result_arrayの1行目にmy_fieldsをセット
+	 		         result_array.add(my_fields);
+	           		 while(my_rs.next()) {
+		            	// result_arrayに入れる用のリスト
+		             	ArrayList<String> tmp = new ArrayList<>();
+		            	for(int i = 0; i < my_fields.size(); i++) {
+		            		tmp.add(my_rs.getObject(my_fields.get(i)).toString());
+		            	}
+		            	result_array.add(tmp);
+		             } 
+	            	 
 	            	 
 	            	 // is_correctがfalseになっていない場合(属性値集合が等しかった場合)
 	            	 if (is_correct) {
-	            		// result_arrayの1行目にmy_fieldsをセット
-	 		            result_array.add(my_fields);
+	            		
 	 		            
 	 		        // answer_arrayの1行目にmy_fieldsをセット
 			            answer_array.add(my_fields);
@@ -164,15 +175,7 @@ public class AnswerCheckDAO {
 				          }
 		            	 
 		            	 
-				         // ユーザーの実行結果をArrayListに保存
-		           		 while(my_rs.next()) {
-			            	// result_arrayに入れる用のリスト
-			             	ArrayList<String> tmp = new ArrayList<>();
-			            	for(int i = 0; i < my_fields.size(); i++) {
-			            		tmp.add(my_rs.getObject(my_fields.get(i)).toString());
-			            	}
-			            	result_array.add(tmp);
-			             } 
+				         
 		           		 
 		           		 // 2つのリストを比較
 		           		 if (answer_array.size() == result_array.size()) {
@@ -198,41 +201,15 @@ public class AnswerCheckDAO {
 	            	 }
 	            	
 		            
-		           
-		            
-
-
-		           
-		            // 戻り値をmapにセット
+	            	// 戻り値をmapにセット
 			            returnMap.put("is_correct", is_correct);
 			            returnMap.put("result", result_array);
 			            returnMap.put("my_answer", my_answer);
-//		         
 		            
-		            // 問題の解答状況を更新
-		            // 最新の解答履歴だけbeansに保存することになっていたbeansも更新
-		            String sql_for_answerings = "INSERT INTO answerings (eid, uid, answer, is_correct) VALUES (?, ?, ?, ?); ";
-//		            		+ "SELECT * FROM answerings "
-//		            		+ "WHERE eid = ? AND uid = ? AND challenge_date = (SELECT MAX(challenge_date) FROM answerings WHERE eid = ?  AND uid = ?)";
-	                PreparedStatement ps_for_answerings = con.prepareStatement(sql_for_answerings);
-	                ps_for_answerings.setInt(1, ueb.getEid());
-	                ps_for_answerings.setInt(2, uid);
-	                ps_for_answerings.setString(3, my_answer);
-	                ps_for_answerings.setBoolean(4, is_correct);
-	                
-	                String sql_for_return = "SELECT * FROM answerings WHERE eid = ? AND uid = ? AND challenge_date = (SELECT MAX(challenge_date) FROM answerings WHERE eid = ?  AND uid = ?)";
-	                PreparedStatement ps_for_return = con.prepareStatement(sql_for_return);
-	                ps_for_return.setInt(1, ueb.getEid());
-	                ps_for_return.setInt(2, uid);
-	                ps_for_return.setInt(3, ueb.getEid());
-	                ps_for_return.setInt(4, uid);
-	                ps_for_answerings.executeUpdate();
-	                ResultSet rs_for_return = ps_for_return.executeQuery();
-	                if (rs_for_return.next()) {
-	                	ueb.setChallengeDate(rs_for_return.getObject("challenge_date", OffsetDateTime.class));
-	                	ueb.setMyAnswer(rs_for_return.getString("answer"));
-	                	ueb.setIsCorrect(rs_for_return.getBoolean("is_correct"));
-	                } 
+
+
+		           
+		           
 		            
 		            
 		            
@@ -245,6 +222,34 @@ public class AnswerCheckDAO {
 		            returnMap.put("my_answer", my_answer);
 				} finally {
 					try {
+						 
+//		         
+			            
+			            // 問題の解答状況を更新
+			            // 最新の解答履歴だけbeansに保存することになっていたbeansも更新
+			            String sql_for_answerings = "INSERT INTO answerings (eid, uid, answer, is_correct) VALUES (?, ?, ?, ?); ";
+	//		            		+ "SELECT * FROM answerings "
+	//		            		+ "WHERE eid = ? AND uid = ? AND challenge_date = (SELECT MAX(challenge_date) FROM answerings WHERE eid = ?  AND uid = ?)";
+		                PreparedStatement ps_for_answerings = con.prepareStatement(sql_for_answerings);
+		                ps_for_answerings.setInt(1, ueb.getEid());
+		                ps_for_answerings.setInt(2, uid);
+		                ps_for_answerings.setString(3, my_answer);
+		                ps_for_answerings.setBoolean(4, Boolean.parseBoolean(returnMap.get("is_correct").toString()));
+		                
+		                String sql_for_return = "SELECT * FROM answerings WHERE eid = ? AND uid = ? AND challenge_date = (SELECT MAX(challenge_date) FROM answerings WHERE eid = ?  AND uid = ?)";
+		                PreparedStatement ps_for_return = con.prepareStatement(sql_for_return);
+		                ps_for_return.setInt(1, ueb.getEid());
+		                ps_for_return.setInt(2, uid);
+		                ps_for_return.setInt(3, ueb.getEid());
+		                ps_for_return.setInt(4, uid);
+		                ps_for_answerings.executeUpdate();
+		                ResultSet rs_for_return = ps_for_return.executeQuery();
+		                if (rs_for_return.next()) {
+		                	ueb.setChallengeDate(rs_for_return.getObject("challenge_date", OffsetDateTime.class));
+		                	ueb.setMyAnswer(rs_for_return.getString("answer"));
+		                	ueb.setIsCorrect(rs_for_return.getBoolean("is_correct"));
+		                } 
+	                
 						if (con != null) {
 							con.close();
 						}
