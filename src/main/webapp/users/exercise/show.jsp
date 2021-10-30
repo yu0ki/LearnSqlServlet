@@ -18,6 +18,20 @@
 		
 		<div class="row py-3">
 			<div class="col-4"><h3>問題</h3> </div>
+			<div class="col-7"></div>
+			<div class="col-1">
+				<% if (ueb.getIsBookmarked()) { %>
+		            	<a href="/LearnSqlServlet/users/exercise/bookmark?eid=<%= ueb.getEid() %>&uid=<%= uid %>">
+		            		<span class="text-primary"><i class="fas fa-bookmark"></i></span>
+		           		</a>
+		           	<% } else if (!ueb.getIsBookmarked()){ %>
+		           		<a href="/LearnSqlServlet/users/exercise/bookmark?eid=<%= ueb.getEid() %>&uid=<%= uid %>">
+		           			<span class="text-primary"><i class="far fa-bookmark"></i></span>
+		           		</a>
+		           	<% } else {%>
+		           		<span class="text-secondary"><i class="fas fa-question-circle"></i></span>
+		           	<% } %>
+			</div>
 		</div>
 		
 		<div class="row py-3">
