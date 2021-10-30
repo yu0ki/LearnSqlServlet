@@ -23,7 +23,6 @@
 		<% beans.UserExerciseBeans ueb = exercise_dao.UserExerciseShowDAO.findExercise(eid, uid); %>
 		
 		<% // 閲覧履歴をつける
-		System.out.println("通過3");
 		if (usb.getIsOpened()) {
 			story_dao.UserStoryViewsDAO.setViewStory(title, uid, true);
 			usb.setIsOpened(true);

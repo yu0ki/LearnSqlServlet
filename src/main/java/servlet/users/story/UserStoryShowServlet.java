@@ -46,7 +46,6 @@ public class UserStoryShowServlet extends HttpServlet {
 		boolean is_opened = Boolean.parseBoolean(request.getParameter("new_is_opened"));	
 		
 		// 閲覧履歴をつける
-		System.out.println("通過1");
 		UserStoryViewsDAO.setViewStory(title, uid, (is_opened || request.getParameter("new_is_opened") == null));
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/users/story/show.jsp");
@@ -60,7 +59,6 @@ public class UserStoryShowServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		System.out.println("通過2");	
 		
 		
 		// ユーザーによる入力値
