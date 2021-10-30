@@ -14,6 +14,9 @@ public class UserExerciseBeans {
 	private String my_answer;
 	private boolean is_correct;
 	
+	// ブックマークされているかを取得
+	private boolean is_bookmarked;
+	
 	
 	public int getEid() {
 		return eid;
@@ -62,6 +65,14 @@ public class UserExerciseBeans {
 	
 	public void setIsCorrect(boolean is_correct) {
 		this.is_correct = is_correct;
+	}
+	
+	public boolean getIsBookmarked() {
+		return is_bookmarked;
+	}
+	
+	public void setIsBookmarked(boolean is_bookmarked) {
+		this.is_bookmarked = is_bookmarked;
 	}
 
 }

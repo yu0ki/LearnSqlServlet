@@ -63,8 +63,14 @@ public class UserExerciseShowDAO {
                 	returnUEB.setMyAnswer(rs_for_answerings.getString("answer"));
                 	returnUEB.setIsCorrect(rs_for_answerings.getBoolean("is_correct"));
                 } 
-	            
-	            
+                
+                // ブックマークされているかどうかを取得
+	            String sql_for_bookmark = "SELECT * FROM bookmarks WHERE eid = ? AND uid = ?;";
+	            PreparedStatement ps_for_bookmark = con.prepareStatement(sql_for_bookmark);
+	            ps_for_bookmark.setInt(1, eid);
+                ps_for_bookmark.setInt(2, uid);
+                ResultSet rs_for_bookmark = ps_for_bookmark.executeQuery();
+                returnUEB.setIsBookmarked(rs_for_bookmark.next());            
 	            
 //	            
 	            

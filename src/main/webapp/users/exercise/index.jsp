@@ -19,12 +19,15 @@
 		<% java.util.List<beans.UserExerciseBeans> ueb_list = ueid.findAllExercise(); %>
 		<% int uid = ((beans.UserAccountBeans) (request.getSession(false).getAttribute("user"))).getUid(); %>
 		
+		
+		
+				
 		<table class="table">
 			<tr class="row">
 				<th class="col-1 bg-light">問題id</th>
 				<th class="col-1 bg-light">正誤</th>
-				<th class="col-1 bg-light"></th>
 				<th class="col-8 bg-light">問題文</th>
+				<th class="col-1 bg-light"></th>
 			</tr>
 		
 			<%for(int i = 0; i < ueb_list.size(); i++){%>
@@ -37,21 +40,33 @@
 		            <td class="col-1">
 		            	<% if (ueb.getIsCorrect()) { %>
 		            		<span class="text-success"><i class="fas fa-check-circle"></i></span>
-		            	<% } else if (ueb.getIsCorrect()){ %>
+		            	<% } else if (ueb.getMyAnswer() == null) {%>
+		            		<!-- 何も表示しない -->
+		            	<% } else if (!ueb.getIsCorrect()){ %>
 		            		<span class="text-danger"><i class="fas fa-times-circle"></i></span>
-		            	<% } else {%>
-		            		<span class="text-secondary"><i class="fas fa-question-circle"></i></span>
 		            	<% } %>
 		            </td>
 		            
-		            <td class="col-1">
-		            	
-		            </td>
+		           
 		            
 		            
 		            <!-- style直指定。問題文が長すぎる場合は三点リーダーで省略 -->
 		            <td style="max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" class="wrap-text col-8">
 		            	<%= ueb.getSentence() %>
+		            </td>
+		            
+		             <td class="col-1">
+		            	<% if (ueb.getIsBookmarked()) { %>
+		            		<a href="/LearnSqlServlet/users/exercise/bookmark?eid=<%= ueb.getEid() %>&uid=<%= uid %>">
+		            			<span class="text-primary"><i class="fas fa-bookmark"></i></span>
+		            		</a>
+		            	<% } else if (!ueb.getIsBookmarked()){ %>
+		            		<a href="/LearnSqlServlet/users/exercise/bookmark?eid=<%= ueb.getEid() %>&uid=<%= uid %>">
+		            			<span class="text-primary"><i class="far fa-bookmark"></i></span>
+		            		</a>
+		            	<% } else {%>
+		            		<span class="text-secondary"><i class="fas fa-question-circle"></i></span>
+		            	<% } %>
 		            </td>
 		        </tr>
 		    <% } %>
