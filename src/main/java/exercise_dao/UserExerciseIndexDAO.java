@@ -43,7 +43,7 @@ public class UserExerciseIndexDAO {
             
             
             while (rs.next()) {
-                // 見つかったアカウント情報を戻り値にセット
+                // 見つかった情報を戻り値にセット
             	UserExerciseBeans ueb = new UserExerciseBeans();
                 ueb.setEid(rs.getInt("eid"));
                 ueb.setSentence(rs.getString("sentence"));    

@@ -32,12 +32,11 @@
 		<div class="row py-3">
 			<div class="col-9"><h3><%= usb.getTitle() %></h3> </div>	
 			<div class="col-3">
-				<% System.out.println(usb.getIsOpened()); %>
 				<% if (usb.getIsOpened()) { %>
 					<form action="./show" method="get">
 						<input type="hidden" name="title" value="<%= usb.getTitle() %>">
 						<input type="hidden" name="new_is_opened" value="false">
-						<input type="submit" value="チェックをつける" class="btn btn-secondary">
+						<input type="submit" value="チェックをつける" class="btn btn-primary">
 						<i class="far fa-flag text-primary"></i>
 					</form>
 				<% } else { %>

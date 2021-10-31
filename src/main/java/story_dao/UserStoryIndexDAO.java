@@ -42,25 +42,33 @@ public class UserStoryIndexDAO {
             List<UserStoryBeans> preUSB =  new ArrayList<>();
             
             while (rs.next()) {
-                // 見つかったアカウント情報を戻り値にセット
+                // 見つかった情報を戻り値にセット
             	UserStoryBeans usb = new UserStoryBeans();
                 usb.setTitle(rs.getString("title"));
                 usb.setSentence(rs.getString("sentence"));  
                 usb.setEid(rs.getInt("eid"));  
                 usb.setNextTitle(rs.getString("next_title"));  
                 
-                // 閲覧状態をセット
-                String sql_for_is_opened = "SELECT is_opened FROM view_stories WHERE title = ? AND uid = ?";
+             // さらに閲覧状態を取得
+	            String sql_for_is_opened = "SELECT is_opened FROM view_stories WHERE title = ? AND uid = ?";
                 PreparedStatement ps_for_is_opened = con.prepareStatement(sql_for_is_opened);
                 ps_for_is_opened.setString(1, usb.getTitle());
                 ps_for_is_opened.setInt(2, uid);
                 ResultSet rs_for_is_opened = ps_for_is_opened.executeQuery();
                 if (rs_for_is_opened.next()) {
-//                	System.out.println(usb.getTitle());
                 	usb.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
+                	if (!rs_for_is_opened.getBoolean("is_opened")) {
+                		usb.setIsFocused(true);
+                	} else {
+                		usb.setIsFocused(false);
+                	}
                 } else {
+                	// 初閲覧（閲覧記録がない）場合は初期値を設定
                 	usb.setIsOpened(false);
+                	usb.setIsFocused(false);
                 }
+                
+             // ここからはストーリーを最新話から順に並べる作業
                 
              // まずは一番最後のストーリー(next_title == null)を探す
                 if (usb.getNextTitle() == null) {

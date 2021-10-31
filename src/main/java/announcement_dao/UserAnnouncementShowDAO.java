@@ -1,15 +1,16 @@
-package story_dao;
+package announcement_dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
 
-import beans.UserStoryBeans;
+import beans.UserAnnouncementBeans;
 
-public class UserStoryShowDAO {
-	//ここではユーザーがストーリー詳細情報を得るときに使うデータアクセス機能一覧を作る。
+public class UserAnnouncementShowDAO {
+	//ここではユーザーが告知詳細情報を得るとき使うデータアクセス機能一覧を作る。
 	
 		// データベース接続に使用する情報
 		private static String _hostname = "localhost";
@@ -17,13 +18,11 @@ public class UserStoryShowDAO {
 		private static String _username = "postgres";
 		private static String _password = "postgres";
 		
+	    // UserAnnouncementBeansの情報を全て埋めるべくSQLを走らせる
 		
-		// UserStoryBeansの情報を全て埋めるべくSQLを走らせる
-		
-	    public static UserStoryBeans findStory(String title, int uid) {
-//	    	System.out.println(title);
+	    public static UserAnnouncementBeans findAnnouncement(int aid, int uid) {
 	        // 戻り値の用意
-	    	UserStoryBeans returnUSB =  new UserStoryBeans();
+	    	UserAnnouncementBeans returnUAB =  new UserAnnouncementBeans();
 
 	        // データベースへ接続
 	    	Connection con = null;
@@ -32,41 +31,41 @@ public class UserStoryShowDAO {
 				con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 						+ ":5432/" + _dbname, _username, _password);
 				
-				// まずはストーリーを取得
-	            String sql = "SELECT * FROM stories WHERE title = ?";
+				// まずは告知を取得
+	            String sql = "SELECT * FROM announcements WHERE aid = ?";
 	            PreparedStatement ps= con.prepareStatement(sql);
-	            ps.setString(1, title);
+	            ps.setInt(1, aid);
 	            ResultSet rs = ps.executeQuery();
 
 	           
 	            // 戻り値をbeansにセット
 	            if (rs.next()) {
-		            returnUSB.setTitle(rs.getString("title"));
-		            returnUSB.setSentence(rs.getString("sentence"));
-		            returnUSB.setEid(rs.getInt("eid"));
-		            returnUSB.setNextTitle(rs.getString("next_title"));
+		            returnUAB.setAid(rs.getInt("aid"));
+		            returnUAB.setSentence(rs.getString("sentence"));
+		            returnUAB.setTitle(rs.getString("title"));
+		            returnUAB.setPublicationDate(rs.getObject("publication_date", OffsetDateTime.class));
 	            } else {
-	            	// storyが見つからなかった場合はnullを返す
+	            	// announcementが見つからなかった場合はnullを返す
 	            	return null;
 	            }
 	            
 	            // さらに閲覧状態を取得
-	            String sql_for_is_opened = "SELECT is_opened FROM view_stories WHERE title = ? AND uid = ?";
+	            String sql_for_is_opened = "SELECT is_opened FROM view_announcements WHERE aid = ? AND uid = ?";
                 PreparedStatement ps_for_is_opened = con.prepareStatement(sql_for_is_opened);
-                ps_for_is_opened.setString(1, title);
+                ps_for_is_opened.setInt(1, returnUAB.getAid());
                 ps_for_is_opened.setInt(2, uid);
                 ResultSet rs_for_is_opened = ps_for_is_opened.executeQuery();
                 if (rs_for_is_opened.next()) {
-                	returnUSB.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
+                	returnUAB.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
                 	if (!rs_for_is_opened.getBoolean("is_opened")) {
-                		returnUSB.setIsFocused(true);
+                		returnUAB.setIsFocused(true);
                 	} else {
-                		returnUSB.setIsFocused(false);
+                		returnUAB.setIsFocused(false);
                 	}
                 } else {
                 	// 初閲覧（閲覧記録がない）場合は初期値を設定
-                	returnUSB.setIsOpened(false);
-                	returnUSB.setIsFocused(false);
+                	returnUAB.setIsOpened(false);
+                	returnUAB.setIsFocused(false);
                 }
 //	            
 	            
@@ -84,7 +83,7 @@ public class UserStoryShowDAO {
 					e.printStackTrace();
 				}
 			}
-	        return returnUSB;
+	        return returnUAB;
 	    }
 	    
 	   

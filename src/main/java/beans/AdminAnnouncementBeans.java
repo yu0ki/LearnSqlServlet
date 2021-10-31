@@ -3,7 +3,7 @@ package beans;
 import java.time.OffsetDateTime;
 
 public class AdminAnnouncementBeans {
-	// 管理者が問題をいじるために必要なデータを全部含んだBeansを作る
+	// 管理者が告知をいじるために必要なデータを全部含んだBeansを作る
 	
 	private int aid;
 
@@ -12,7 +12,7 @@ public class AdminAnnouncementBeans {
 	
 	private OffsetDateTime publication_date;
 	
-	// この問題を最後に編集した管理者のデータを保持
+	// この告知を最後に編集した管理者のデータを保持
 	private String admin_number;
 	private String responsibility;
 	private String contact;

@@ -9,7 +9,10 @@ public class UserStoryBeans {
 	private String next_title;
 	
 	// このストーリーの現在ログインしているユーザーの閲覧履歴情報
+	// is_openedはこのストーリーが1度でもアクセスされたことがあればtrue
 	private boolean is_opened;
+	// is_focusedはこのストーリーにフラグが立っているときにtrue
+	// データベース上でフラグが立っているというのは、閲覧履歴があるのにis_openedカラムがfalseの場合に相当
 	private boolean is_focused;
 	
 	public String getTitle() {
