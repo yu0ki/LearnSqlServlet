@@ -10,6 +10,7 @@ public class UserStoryBeans {
 	
 	// このストーリーの現在ログインしているユーザーの閲覧履歴情報
 	private boolean is_opened;
+	private boolean is_focused;
 	
 	public String getTitle() {
 		return title;
@@ -49,6 +50,14 @@ public class UserStoryBeans {
 	
 	public void setIsOpened(boolean is_opened) {
 		this.is_opened = is_opened;
+	}
+	
+	public boolean getIsFocused() {
+		return is_focused;
+	}
+	
+	public void setIsFocused(boolean is_focused) {
+		this.is_focused = is_focused;
 	}
 
 }

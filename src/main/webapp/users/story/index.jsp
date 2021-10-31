@@ -1,3 +1,4 @@
+<%@page import="story_dao.UserStoryShowDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,10 +26,12 @@
 			</tr>
 		
 			<%for(int i = usb_list.size() - 1; i >= 0; i--){%>
-		        <% beans.UserStoryBeans usb = usb_list.get(i);%>
+		        <% beans.UserStoryBeans usb = UserStoryShowDAO.findStory(usb_list.get(i).getTitle(), uid);%>
 		        <tr>
 		            <td>
-		            	<% if (!usb.getIsOpened()) { %>
+		            	<% if (usb.getIsFocused()) {%>
+		            		<span class="text-primary"><i class="fas fa-flag"></i></span>
+		            	<% } else if (!usb.getIsOpened() && !usb.getIsFocused()) { %>
 		            		<span class="text-danger">NEW!</span>
 		            	<% } %>
 		            	<a href="/LearnSqlServlet/users/story/show.jsp?title=<%= usb.getTitle() %>"><%= usb.getTitle() %></a>
