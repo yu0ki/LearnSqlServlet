@@ -15,6 +15,8 @@ public class UserAccountRegisterDAO {
 		private String _username = "postgres";
 		private String _password = "postgres";
 		
+	// ユーザーがアカウントを新規登録するときに必要なデータアクセス機能
+		
 public  UserAccountRegisterDAO(UserAccountBeans ab) throws Exception {
 
 	Connection con = null;
@@ -23,7 +25,9 @@ public  UserAccountRegisterDAO(UserAccountBeans ab) throws Exception {
 		con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 				+ ":5432/" + _dbname, _username, _password);
 
+		// ニックネームを登録
         String sql = "INSERT INTO users (nickname) VALUES (?)";
+        System.out.println(sql);
         PreparedStatement ps= con.prepareStatement(sql);
 
         ps.setString(1, ab.getNickname());

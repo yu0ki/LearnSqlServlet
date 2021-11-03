@@ -21,7 +21,7 @@ public class UserExerciseIndexDAO {
 	
     // 問題一覧を表示する
 	
-    public List<UserExerciseBeans> findAllExercise() {
+    public List<UserExerciseBeans> findAllExercise(int display_option, int uid) {
 
         // 戻り値の用意
     	List<UserExerciseBeans> returnUEB =  new ArrayList<>();
@@ -32,9 +32,28 @@ public class UserExerciseIndexDAO {
         	Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 					+ ":5432/" + _dbname, _username, _password);
+			
+			
 
-            String sql = "SELECT * FROM exercises";
-            PreparedStatement ps= con.prepareStatement(sql);
+			// display_flagによって検索内容を変更
+			String sql;
+			if (display_option == 0) {
+				sql = "SELECT * FROM exercises ORDER BY eid ASC";
+			} else if (display_option == 1) {
+				sql = "SELECT * FROM exercises ORDER BY eid DESC";
+			} else if (display_option == 2) {
+				sql = "SELECT * FROM exercises WHERE eid IN (SELECT eid FROM answerings WHERE uid = " +
+						uid + "  ORDER BY eid ASC);";
+			} else if (display_option == 3) {
+				sql = " (SELECT eid, sentence, exercises.answer FROM exercises LEFT JOIN answerings USING (eid) WHERE eid IN (SELECT eid FROM answerings WHERE uid = "
+						+ uid +") AND is_correct = false ORDER BY eid ASC)"
+								+ " UNION  (SELECT eid, sentence, answer FROM exercises RIGHT JOIN bookmarks USING (eid) WHERE uid =" +  uid + " ORDER BY eid ASC);";
+			} else {
+				sql = "SELECT * FROM exercises;";
+			}
+			
+			System.out.println(sql);
+			PreparedStatement ps= con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
           
             
