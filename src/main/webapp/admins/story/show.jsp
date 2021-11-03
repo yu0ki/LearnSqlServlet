@@ -91,6 +91,35 @@
 		</table>
 		
 		
+		<div class="row py-3">
+			<div class="col-4"><h3>編集履歴</h3> </div>
+		</div>
+		
+		<table class="table">
+			<tr class="bg-light">
+				<th>編集者</th>
+				<th>連絡先</th>
+				<th>備考</th>
+				<th>編集日時</th>
+			</tr>
+			
+			<% java.util.List<java.util.List<String>> logs = story_dao.StoryEditLogDAO.findStoryLog(asb.getTitle()); %>
+			<% for(int i = 0; i < logs.size(); i++) { %>
+				<tr>
+					<% java.util.List<String> log = logs.get(i); %>
+					<td><%= log.get(0) %>(<%= log.get(1) %>)</td>
+					<td><%= log.get(2) %></td>
+					<td>
+						<% if (!Boolean.parseBoolean(log.get(3))) { %>
+							退職済み
+						<% } %>
+					</td>
+					<td><%= log.get(4) %></td>
+				</tr>
+			<% } %>
+		</table>
+		
+		
 		
 		
 	
