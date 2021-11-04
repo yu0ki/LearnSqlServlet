@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class AdminAnnouncementDeleteDAO {
-	//ここでは管理者が告知をいじるときに使うデータアクセス機能一覧を作る。
+	//ここでは管理者が告知を削除するときに使うデータアクセス機能一覧を作る。
 	
 		// データベース接続に使用する情報
 		private static String _hostname = "localhost";
@@ -14,12 +14,9 @@ public class AdminAnnouncementDeleteDAO {
 		private static String _username = "postgres";
 		private static String _password = "postgres";
 		
-		
+		// 告知削除関数
 	    public static void deleteAnnouncement(int aid) {
 	        
-	    	
-	    	
-
 	        // データベースへ接続
 	    	Connection con = null;
 	        try {
@@ -27,14 +24,15 @@ public class AdminAnnouncementDeleteDAO {
 				con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 						+ ":5432/" + _dbname, _username, _password);
 
+				// 告知を物理削除
 	            String sql = "DELETE FROM announcements WHERE aid = ?;";
 	            PreparedStatement ps= con.prepareStatement(sql);
 	            
 	            ps.setInt(1, aid);
 	            
 	            
-	            int r = ps.executeUpdate();
-
+	            ps.executeUpdate();
+	            System.out.println(sql);
 	         
 	            
 	        } catch (Exception e) {

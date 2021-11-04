@@ -18,7 +18,7 @@ public class UserAnnouncementShowDAO {
 		private static String _username = "postgres";
 		private static String _password = "postgres";
 		
-	    // UserAnnouncementBeansの情報を全て埋めるべくSQLを走らせる
+	    // UserAnnouncementBeansの情報を全て埋めるべくSQLを走らせる関数
 		
 	    public static UserAnnouncementBeans findAnnouncement(int aid, int uid) {
 	        // 戻り値の用意
@@ -31,11 +31,12 @@ public class UserAnnouncementShowDAO {
 				con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 						+ ":5432/" + _dbname, _username, _password);
 				
-				// まずは告知を取得
+				// まずは表示したい告知を取得
 	            String sql = "SELECT * FROM announcements WHERE aid = ?";
 	            PreparedStatement ps= con.prepareStatement(sql);
 	            ps.setInt(1, aid);
 	            ResultSet rs = ps.executeQuery();
+	            System.out.println(sql);
 
 	           
 	            // 戻り値をbeansにセット
@@ -55,7 +56,10 @@ public class UserAnnouncementShowDAO {
                 ps_for_is_opened.setInt(1, returnUAB.getAid());
                 ps_for_is_opened.setInt(2, uid);
                 ResultSet rs_for_is_opened = ps_for_is_opened.executeQuery();
+                System.out.println(sql_for_is_opened);
+                
                 if (rs_for_is_opened.next()) {
+                	// この告知を一度でも表示したことがある場合、閲覧状態(is_opened)を取得
                 	returnUAB.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
                 	
                 } else {

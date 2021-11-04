@@ -35,10 +35,11 @@ public class UserAccountDAO {
 			con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 					+ ":5432/" + _dbname, _username, _password);
 
+			// nicknameをもとに必要な情報を選択
             String sql = "SELECT uid, nickname, registered_date, is_valid_account FROM users WHERE nickname = ?";
             PreparedStatement ps= con.prepareStatement(sql);
 
-           
+           // 与えられたbeansからログインしたいユーザーのnicknameを取得
             ps.setString(1, uab.getNickname());
             System.out.println(sql);
 

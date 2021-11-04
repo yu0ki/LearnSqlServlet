@@ -9,7 +9,7 @@ public class UserStoryBeans {
 	private String next_title;
 	
 	// このストーリーの現在ログインしているユーザーの閲覧履歴情報
-	// is_openedはこのストーリーが1度でもアクセスされたことがあればtrue
+	// is_openedはこのストーリーが既読であればtrue
 	private boolean is_opened;
 	
 	

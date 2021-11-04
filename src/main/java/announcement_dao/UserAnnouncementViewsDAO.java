@@ -16,7 +16,7 @@ public class UserAnnouncementViewsDAO {
 		private static String _password = "postgres";
 		
 
-		
+		// 告知の閲覧状態を管理する関数
 	    public static void setViewAnnouncement(int aid, int uid, boolean is_opened) {
 
 	        // データベースへ接続
@@ -32,6 +32,7 @@ public class UserAnnouncementViewsDAO {
 	            ps.setInt(1, aid);
 	            ps.setInt(2, uid);
 	            ResultSet rs = ps.executeQuery();
+	            System.out.println(sql);
 
 	           
 	            // 閲覧記録がなければ作成
@@ -55,9 +56,6 @@ public class UserAnnouncementViewsDAO {
 	            }
 	            
 	            System.out.println(sql_for_is_opened);
-	            
-	           
-	            
 	            ps_for_is_opened.executeUpdate();
 	            
 	            

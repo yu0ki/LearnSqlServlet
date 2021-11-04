@@ -38,6 +38,7 @@ public class StoryEditLogDAO {
             PreparedStatement ps= con.prepareStatement(sql);
             ps.setString(1, title);
             ResultSet rs = ps.executeQuery();
+            System.out.println(sql);
 
            
             

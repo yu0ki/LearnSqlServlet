@@ -11,7 +11,7 @@ import java.util.List;
 import beans.AdminStoryBeans;
 
 public class AdminStoryIndexDAO {
-	//ここでは管理者がストーリーをいじるときに使うデータアクセス機能一覧を作る。
+	//ここでは管理者がストーリーを一覧表示するときに使うデータアクセス機能一覧を作る。
 	
 	// データベース接続に使用する情報
 	private String _hostname = "localhost";
@@ -37,7 +37,8 @@ public class AdminStoryIndexDAO {
             String sql = "SELECT * FROM stories";
             PreparedStatement ps= con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-
+            System.out.println(sql);
+            
             // 並べ替え用一時記憶リスト
             List<AdminStoryBeans> preASB =  new ArrayList<>();
             

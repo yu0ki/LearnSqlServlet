@@ -15,14 +15,17 @@ public class AdminAccountDeleteDAO {
 		private String _username = "postgres";
 		private String _password = "postgres";
 		
+// 管理者のアカウントを削除する関数
 public  AdminAccountDeleteDAO(AdminAccountBeans ab) throws Exception {
 
+	// データベース接続
 	Connection con = null;
 	try {
     	Class.forName("org.postgresql.Driver");
 		con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 				+ ":5432/" + _dbname, _username, _password);
 
+		// adminsテーブルのis_valid_accountカラムをfalseに更新して論理削除
         String sql = "UPDATE admins SET is_valid_account = false WHERE admin_number = ? AND responsibility = ?::content";
         
         
@@ -33,15 +36,16 @@ public  AdminAccountDeleteDAO(AdminAccountBeans ab) throws Exception {
     
 
         int r = ps.executeUpdate();
+        System.out.println(sql);
         
         
         
 
-//        if(r != 0) {
+        if(r != 0) {
             System.out.println("論理削除成功！");
-//        } else {
-//            System.out.println("新規登録失敗");
-//        }
+        } else {
+            System.out.println("論理削除失敗");
+        }
 
 	} catch (Exception e) {
 		e.printStackTrace();

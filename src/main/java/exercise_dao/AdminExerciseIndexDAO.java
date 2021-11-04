@@ -11,7 +11,7 @@ import java.util.List;
 import beans.AdminExerciseBeans;
 
 public class AdminExerciseIndexDAO {
-	//ここでは管理者がストーリーをいじるときに使うデータアクセス機能一覧を作る。
+	//ここでは管理者が問題をいじるときに使うデータアクセス機能一覧を作る。
 	
 	// データベース接続に使用する情報
 	private String _hostname = "localhost";
@@ -19,8 +19,8 @@ public class AdminExerciseIndexDAO {
 	private String _username = "postgres";
 	private String _password = "postgres";
 	
-    // ストーリー一覧を表示する
-	// ストーリーの題名と最終編集者(名前と管理者番号と担当内容と連絡先)とその日時を取得
+    // 問題一覧を表示する
+	// 問題の題名と最終編集者(名前と管理者番号と担当内容と連絡先)とその日時を取得
 	
     public List<AdminExerciseBeans> findAllExercise() {
 
@@ -37,6 +37,7 @@ public class AdminExerciseIndexDAO {
             String sql = "SELECT * FROM exercises";
             PreparedStatement ps= con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            System.out.println(sql);
           
             
            
@@ -44,7 +45,7 @@ public class AdminExerciseIndexDAO {
             
             
             while (rs.next()) {
-                // 見つかったアカウント情報を戻り値にセット
+                // 見つかった情報を戻り値にセット
             	AdminExerciseBeans aeb = new AdminExerciseBeans();
                 aeb.setEid(rs.getInt("eid"));
                 aeb.setSentence(rs.getString("sentence"));    
@@ -59,7 +60,7 @@ public class AdminExerciseIndexDAO {
           
             
             
-//            ストーリーが存在しない場合nullを返す
+//            問題が存在しない場合nullを返す
             if (returnAEB.size() == 0) {
             	return null;
             }

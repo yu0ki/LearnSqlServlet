@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnnouncementEditLogDAO {
-	//ここでは管理者がストーリー詳細ページで確認する編集履歴一覧を取得する
+	//ここでは管理者が告知詳細ページで確認する編集履歴一覧を取得する
 	
 	// データベース接続に使用する情報
 	private static String _hostname = "localhost";
@@ -18,6 +18,7 @@ public class AnnouncementEditLogDAO {
 	private static String _username = "postgres";
 	private static String _password = "postgres";
 	
+	// ある告知に関連するすべての編集履歴を取得
     // 2次元配列で返す
 	
     public static List<List<String>> findAnnouncementLog(int aid) {
@@ -38,22 +39,29 @@ public class AnnouncementEditLogDAO {
             PreparedStatement ps= con.prepareStatement(sql);
             ps.setInt(1, aid);
             ResultSet rs = ps.executeQuery();
+            System.out.println(sql);
 
            
             
             while (rs.next()) {
                 // 見つかった情報を戻り値にセット
+            	
+            	// 2次元配列の内側のリストtmp
             	List<String> tmp = new ArrayList<>();
             	tmp.add(rs.getString("name"));
             	tmp.add(rs.getString("responsibility"));
             	tmp.add(rs.getString("contact"));
+            	
+            	// String型でBooleanを返したいがための苦肉の策
             	if (rs.getBoolean("is_valid_account")) {
             		tmp.add("true");
             	} else {
             		tmp.add("false");
             	}
+            	
             	tmp.add(rs.getObject("editing_date", OffsetDateTime.class).toString());
             	
+            	// 2次元配列の外側のリストにtmpを追加
             	returnLog.add(tmp);
             }
                 

@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 import beans.AdminExerciseBeans;
 
 public class AdminExerciseShowDAO {
-	//ここでは管理者がストーリーをいじるときに使うデータアクセス機能一覧を作る。
+	//ここでは管理者が問題を詳細表示するときに使うデータアクセス機能一覧を作る。
 	
 		// データベース接続に使用する情報
 		private static String _hostname = "localhost";
@@ -18,8 +18,7 @@ public class AdminExerciseShowDAO {
 		private static String _username = "postgres";
 		private static String _password = "postgres";
 		
-	    // ストーリー一覧を表示する
-		// ストーリーの題名と最終編集者(名前と管理者番号と担当内容と連絡先)とその日時を取得
+	    // AdminExerciseBeansの情報を全て埋めるべくsqlを走らせる関数
 		
 	    public static AdminExerciseBeans findExercise(int eid) {
 	        // 戻り値の用意
@@ -38,6 +37,7 @@ public class AdminExerciseShowDAO {
 	            ps.setInt(1, eid);
 	            ps.setInt(2, eid);
 	            ResultSet rs = ps.executeQuery();
+	            System.out.println(sql);
 
 	           
 	            // 戻り値をbeansにセット

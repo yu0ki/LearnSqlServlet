@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class AdminStoryDeleteDAO {
-	//ここでは管理者がストーリーをいじるときに使うデータアクセス機能一覧を作る。
+	//ここでは管理者がストーリーを削除するときに使うデータアクセス機能一覧を作る。
 	
 		// データベース接続に使用する情報
 		private static String _hostname = "localhost";
@@ -27,13 +27,12 @@ public class AdminStoryDeleteDAO {
 				con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 						+ ":5432/" + _dbname, _username, _password);
 
+				// ストーリーを物理削除
 	            String sql = "DELETE FROM stories WHERE title = ?;";
 	            PreparedStatement ps= con.prepareStatement(sql);
-	            
 	            ps.setString(1, title);
-	            
-	            
-	            int r = ps.executeUpdate();
+	            ps.executeUpdate();
+	            System.out.println(sql);
 
 	         
 	            

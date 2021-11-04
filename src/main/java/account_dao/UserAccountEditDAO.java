@@ -25,6 +25,7 @@ public  UserAccountEditDAO(UserAccountBeans ab, String new_nickname) throws Exce
 
 		// adminsの管理者番号は ON UPDATE CASCADEなので、admin_namesを更新すると同時に更新されるはず。
         String sql = "UPDATE users SET nickname = ? WHERE uid = ?; ";
+        System.out.println(sql);
         
         
         PreparedStatement ps= con.prepareStatement(sql);
@@ -32,18 +33,18 @@ public  UserAccountEditDAO(UserAccountBeans ab, String new_nickname) throws Exce
         ps.setInt(2, ab.getUid());
 
     
-
+        // 実行
         int r = ps.executeUpdate();
         
         
         // benasの中身を変更
         ab.setNickname(new_nickname);
 
-//        if(r != 0) {
+        if(r != 0) {
             System.out.println("更新成功！");
-//        } else {
-//            System.out.println("新規登録失敗");
-//        }
+        } else {
+            System.out.println("更新失敗");
+        }
 
 	} catch (Exception e) {
 		e.printStackTrace();

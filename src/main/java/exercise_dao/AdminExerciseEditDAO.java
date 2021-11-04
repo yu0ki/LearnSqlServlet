@@ -11,7 +11,7 @@ import beans.AdminAccountBeans;
 import beans.AdminExerciseBeans;
 
 public class AdminExerciseEditDAO {
-	//ここでは管理者がストーリーをいじるときに使うデータアクセス機能一覧を作る。
+	//ここでは管理者が問題を編集するときに使うデータアクセス機能一覧を作る。
 	
 		// データベース接続に使用する情報
 		private static String _hostname = "localhost";
@@ -19,8 +19,7 @@ public class AdminExerciseEditDAO {
 		private static String _username = "postgres";
 		private static String _password = "postgres";
 		
-	    // ストーリー一覧を表示する
-		// ストーリーの題名と最終編集者(名前と管理者番号と担当内容と連絡先)とその日時を取得
+	    
 		
 	    public static AdminExerciseBeans editExercise(AdminExerciseBeans aeb, AdminAccountBeans aab, String new_sentence, String new_answer) {
 	        // 戻り値の用意
@@ -35,6 +34,7 @@ public class AdminExerciseEditDAO {
 				con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 						+ ":5432/" + _dbname, _username, _password);
 
+				// 問題の更新と編集履歴を保存
 	            String sql = "BEGIN; UPDATE exercises SET eid = ?, sentence = ?, answer = ? WHERE eid = ?;"
 	            		+ "INSERT INTO exercise_creation_editing (eid, admin_number, responsibility) VALUES (?, ?, ?::content); COMMIT;";
 	            PreparedStatement ps= con.prepareStatement(sql);
@@ -49,22 +49,25 @@ public class AdminExerciseEditDAO {
 	            ps.setString(7, aab.getResponsibility());
 	            
 	            int r = ps.executeUpdate();
+	            System.out.println(sql);
 
 	           
 	            // 戻り値をbeansにセット
-	            if (r == 1) {
+	            if (r != 0) {
 		            returnAEB.setSentence(new_sentence);
 		            returnAEB.setEid(aeb.getEid());
 		            returnAEB.setAnswer(new_answer);
 		            returnAEB.setAdminNumber(aab.getAdminNumber());
 		            returnAEB.setResponsibility(aab.getResponsibility());
 		            
+		            // 最終編集日時・編集者情報を取得
 		            ps = con.prepareStatement("SELECT MAX(editing_date) as max_editing_date FROM exercise_creation_editing "
 		            		+ "WHERE eid = ? AND admin_number = ? AND responsibility = ?::content");
 		            ps.setInt(1, aeb.getEid());
 		            ps.setString(2, aab.getAdminNumber());
 		            ps.setString(3, aab.getResponsibility());
 		            ResultSet rs = ps.executeQuery();
+		            
 		            if(rs.next()) {
 		            	returnAEB.setEditingDate(rs.getObject("max_editing_date", OffsetDateTime.class));
 		            }

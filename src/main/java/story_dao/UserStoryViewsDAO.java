@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserStoryViewsDAO {
-	//ここでは管理者がストーリーをいじるときに使うデータアクセス機能一覧を作る。
+	//ここではユーザーのストーリー閲覧状態を管理するときに使うデータアクセス機能一覧を作る。
 	
 		// データベース接続に使用する情報
 		private static String _hostname = "localhost";
@@ -15,8 +15,7 @@ public class UserStoryViewsDAO {
 		private static String _username = "postgres";
 		private static String _password = "postgres";
 		
-	    // ストーリー一覧を表示する
-		// ストーリーの題名と最終編集者(名前と管理者番号と担当内容と連絡先)とその日時を取得
+	    // 閲覧履歴を適切に更新する関数
 		
 	    public static void setViewStory(String title, int uid, boolean is_opened) {
 
@@ -33,6 +32,7 @@ public class UserStoryViewsDAO {
 	            ps.setString(1, title);
 	            ps.setInt(2, uid);
 	            ResultSet rs = ps.executeQuery();
+	            System.out.println(sql);
 
 	           
 	            // 閲覧記録がなければ作成

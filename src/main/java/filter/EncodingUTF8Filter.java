@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebFilter;
  */
 
 // いちいちエンコーディングをUTF-8に書き換えるのが面倒なので、ここで指定してやります。
+// 対象となるのは任意のページです
 
 @WebFilter("/*")
 public class EncodingUTF8Filter implements Filter {

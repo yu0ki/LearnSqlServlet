@@ -13,7 +13,7 @@ public class UserAnnouncementBeans {
 	private OffsetDateTime publication_date;
 	
 	// この告知の現在ログインしているユーザーの閲覧履歴情報
-	// is_openedはこの告知が1度でもアクセスされたことがあればtrue
+	// is_openedはこの告知が既読であればtrue
 	private boolean is_opened;
 	
 	

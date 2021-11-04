@@ -11,7 +11,7 @@ import java.util.List;
 import beans.UserStoryBeans;
 
 public class UserStoryIndexDAO {
-	//ここでは管理者がストーリーをいじるときに使うデータアクセス機能一覧を作る。
+	//ここではユーザーがストーリーを一覧表示するときに使うデータアクセス機能一覧を作る。
 	
 	// データベース接続に使用する情報
 	private String _hostname = "localhost";
@@ -20,7 +20,6 @@ public class UserStoryIndexDAO {
 	private String _password = "postgres";
 	
     // ストーリー一覧を表示する
-	// ストーリーの題名と最終編集者(名前と管理者番号と担当内容と連絡先)とその日時を取得
 	
     public List<UserStoryBeans> findAllStory(int uid) {
 
@@ -37,6 +36,7 @@ public class UserStoryIndexDAO {
             String sql = "SELECT * FROM stories";
             PreparedStatement ps= con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            System.out.println(sql);
 
             // 並べ替え用一時記憶リスト
             List<UserStoryBeans> preUSB =  new ArrayList<>();
@@ -55,6 +55,7 @@ public class UserStoryIndexDAO {
                 ps_for_is_opened.setString(1, usb.getTitle());
                 ps_for_is_opened.setInt(2, uid);
                 ResultSet rs_for_is_opened = ps_for_is_opened.executeQuery();
+                System.out.println(sql_for_is_opened);
                 if (rs_for_is_opened.next()) {
                 	usb.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
                 	

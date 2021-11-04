@@ -11,7 +11,7 @@ import beans.AdminAccountBeans;
 import beans.AdminAnnouncementBeans;
 
 public class AdminAnnouncementEditDAO {
-	//ここでは管理者がストーリーをいじるときに使うデータアクセス機能一覧を作る。
+	//ここでは管理者が告知を編集するときに使うデータアクセス機能一覧を作る。
 	
 		// データベース接続に使用する情報
 		private static String _hostname = "localhost";
@@ -19,8 +19,7 @@ public class AdminAnnouncementEditDAO {
 		private static String _username = "postgres";
 		private static String _password = "postgres";
 		
-	    // ストーリー一覧を表示する
-		// ストーリーの題名と最終編集者(名前と管理者番号と担当内容と連絡先)とその日時を取得
+	   //  告知を編集し、編集履歴を残す関数
 		
 	    public static AdminAnnouncementBeans editAnnouncement(AdminAnnouncementBeans aanb, AdminAccountBeans aab, String new_sentence, String new_title) {
 	        // 戻り値の用意
@@ -35,6 +34,7 @@ public class AdminAnnouncementEditDAO {
 				con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 						+ ":5432/" + _dbname, _username, _password);
 
+				// 告知を編集し、その編集履歴をつけるsql
 	            String sql = "BEGIN; UPDATE announcements SET aid = ?, sentence = ?, title = ? WHERE aid = ?;"
 	            		+ "INSERT INTO announcement_creation_editing (aid, admin_number, responsibility) VALUES (?, ?, ?::content); COMMIT;";
 	            PreparedStatement ps= con.prepareStatement(sql);
@@ -49,16 +49,18 @@ public class AdminAnnouncementEditDAO {
 	            ps.setString(7, aab.getResponsibility());
 	            
 	            int r = ps.executeUpdate();
+	            System.out.println(sql);
 
 	           
 	            // 戻り値をbeansにセット
-	            if (r == 1) {
+	            if (r != 0) {
 		            returnAANB.setSentence(new_sentence);
 		            returnAANB.setAid(aanb.getAid());
 		            returnAANB.setTitle(new_title);
 		            returnAANB.setAdminNumber(aab.getAdminNumber());
 		            returnAANB.setResponsibility(aab.getResponsibility());
 		            
+		            // 最終編集者・日時を取得し、beansに格納
 		            ps = con.prepareStatement("SELECT MAX(editing_date) as max_editing_date FROM announcement_creation_editing "
 		            		+ "WHERE aid = ? AND admin_number = ? AND responsibility = ?::content");
 		            ps.setInt(1, aanb.getAid());

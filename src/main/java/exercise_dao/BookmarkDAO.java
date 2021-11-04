@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 public class BookmarkDAO {
 	//ここではブックマークを付ける・外す動作を実装する
+	// dbにレコードが存在する場合をブックマークがされている状態とみなす
 	
 		// データベース接続に使用する情報
 		private static String _hostname = "localhost";
@@ -29,6 +30,7 @@ public class BookmarkDAO {
 	            ps.setInt(1, eid);
 	            ps.setInt(2, uid);
 	            ResultSet rs = ps.executeQuery();
+	            System.out.println(sql);
 
 	           
 	            // 戻り値が空でない場合（= ブックマークがされている場合）、ブックマークを外す(レコードを削除)
@@ -40,6 +42,7 @@ public class BookmarkDAO {
 		            ps_delete.setInt(1, eid);
 		            ps_delete.setInt(2, uid);
 		            ps_delete.executeUpdate();
+		            System.out.println(delete_bookmark);
 	            } else {
 	            	String insert_bookmark = "INSERT INTO bookmarks (eid, uid) VALUES (?, ?)";
 	            	System.out.println(insert_bookmark);
@@ -47,6 +50,7 @@ public class BookmarkDAO {
 		            ps_insert.setInt(1, eid);
 		            ps_insert.setInt(2, uid);
 		            ps_insert.executeUpdate();
+		            System.out.println(insert_bookmark);
 	            }
 	            
 	            

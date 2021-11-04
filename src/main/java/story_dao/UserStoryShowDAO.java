@@ -18,10 +18,9 @@ public class UserStoryShowDAO {
 		private static String _password = "postgres";
 		
 		
-		// UserStoryBeansの情報を全て埋めるべくSQLを走らせる
+		// UserStoryBeansの情報を全て埋めるべくSQLを走らせる関数
 		
 	    public static UserStoryBeans findStory(String title, int uid) {
-//	    	System.out.println(title);
 	        // 戻り値の用意
 	    	UserStoryBeans returnUSB =  new UserStoryBeans();
 
@@ -37,6 +36,7 @@ public class UserStoryShowDAO {
 	            PreparedStatement ps= con.prepareStatement(sql);
 	            ps.setString(1, title);
 	            ResultSet rs = ps.executeQuery();
+	            System.out.println(sql);
 
 	           
 	            // 戻り値をbeansにセット
@@ -56,6 +56,7 @@ public class UserStoryShowDAO {
                 ps_for_is_opened.setString(1, title);
                 ps_for_is_opened.setInt(2, uid);
                 ResultSet rs_for_is_opened = ps_for_is_opened.executeQuery();
+                System.out.println(sql_for_is_opened);
                 if (rs_for_is_opened.next()) {
                 	returnUSB.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
                 	

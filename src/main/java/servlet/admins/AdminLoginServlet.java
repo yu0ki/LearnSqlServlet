@@ -47,6 +47,7 @@ public class AdminLoginServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		// TODO Auto-generated method stub
 		// ログインを要求してきた管理者が正しいユーザーかどうかを確認する。
+		
     	// そのためにまずは、管理者が打ち込んできた管理者番号、担当を取得する。
     	String admin_number = request.getParameter("admin_number");
     	String responsibility = request.getParameter("responsibility");   
@@ -73,13 +74,10 @@ public class AdminLoginServlet extends HttpServlet {
         	HttpSession session = request.getSession(true);
             session.setAttribute("admin", returnAAb);
             
-//            RequestDispatcher rd = request.getRequestDispatcher("/user_home");
-//            rd.forward(request, response);
             response.sendRedirect("/LearnSqlServlet/admins/home");
         } else {
         	// 認証失敗
-//            RequestDispatcher rd = request.getRequestDispatcher("/home");
-//            rd.forward(request, response);
+
         	response.sendRedirect("/LearnSqlServlet/home");
         }
 	}

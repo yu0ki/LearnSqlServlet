@@ -38,7 +38,7 @@ public class AdminAnnouncementIndexDAO {
             String sql = "SELECT * FROM announcements";
             PreparedStatement ps= con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-          
+            System.out.println(sql);          
             
            
          
@@ -53,9 +53,6 @@ public class AdminAnnouncementIndexDAO {
                 aanb.setPublicationDate(rs.getObject("publication_date", OffsetDateTime.class));
                 
                 returnAANB.add(aanb);
-                
-                
-                
             }
             
           

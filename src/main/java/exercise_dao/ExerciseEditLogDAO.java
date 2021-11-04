@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseEditLogDAO {
-	//ここでは管理者がストーリー詳細ページで確認する編集履歴一覧を取得する
+	//ここでは管理者が問題詳細ページで確認する編集履歴一覧を取得する
 	
 	// データベース接続に使用する情報
 	private static String _hostname = "localhost";
@@ -38,6 +38,7 @@ public class ExerciseEditLogDAO {
             PreparedStatement ps= con.prepareStatement(sql);
             ps.setInt(1, eid);
             ResultSet rs = ps.executeQuery();
+            System.out.println(sql);
 
            
             
@@ -47,6 +48,8 @@ public class ExerciseEditLogDAO {
             	tmp.add(rs.getString("name"));
             	tmp.add(rs.getString("responsibility"));
             	tmp.add(rs.getString("contact"));
+            	
+            	// 返り値をStringのリストのリスト似合わせるための苦肉の策
             	if (rs.getBoolean("is_valid_account")) {
             		tmp.add("true");
             	} else {

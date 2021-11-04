@@ -11,7 +11,7 @@ import java.util.List;
 import beans.UserExerciseBeans;
 
 public class UserExerciseIndexDAO {
-	//ここではユーザーが問題をいじるときに使うデータアクセス機能一覧を作る。
+	//ここではユーザーが問題を一覧表示するときに使うデータアクセス機能一覧を作る。
 	
 	// データベース接続に使用する情報
 	private String _hostname = "localhost";
@@ -38,13 +38,17 @@ public class UserExerciseIndexDAO {
 			// display_flagによって検索内容を変更
 			String sql;
 			if (display_option == 0) {
+				// 普通に一覧表示
 				sql = "SELECT * FROM exercises ORDER BY eid ASC";
 			} else if (display_option == 1) {
+				// 並びを逆順にして一覧表示
 				sql = "SELECT * FROM exercises ORDER BY eid DESC";
 			} else if (display_option == 2) {
+				// 最新の解答履歴で不正解だった問題
 				sql = "SELECT * FROM exercises WHERE eid IN (SELECT eid FROM answerings WHERE uid = " +
 						uid + "  ORDER BY eid ASC);";
 			} else if (display_option == 3) {
+				// 不正解だった問題 + ブックマークした問題
 				sql = " (SELECT eid, sentence, exercises.answer FROM exercises LEFT JOIN answerings USING (eid) WHERE eid IN (SELECT eid FROM answerings WHERE uid = "
 						+ uid +") AND is_correct = false ORDER BY eid ASC)"
 								+ " UNION  (SELECT eid, sentence, answer FROM exercises RIGHT JOIN bookmarks USING (eid) WHERE uid =" +  uid + " ORDER BY eid ASC);";

@@ -11,7 +11,7 @@ import beans.AdminAccountBeans;
 import beans.AdminStoryBeans;
 
 public class AdminStoryEditDAO {
-	//ここでは管理者がストーリーをいじるときに使うデータアクセス機能一覧を作る。
+	//ここでは管理者がストーリーを編集するときに使うデータアクセス機能一覧を作る。
 	
 		// データベース接続に使用する情報
 		private static String _hostname = "localhost";
@@ -19,8 +19,7 @@ public class AdminStoryEditDAO {
 		private static String _username = "postgres";
 		private static String _password = "postgres";
 		
-	    // ストーリー一覧を表示する
-		// ストーリーの題名と最終編集者(名前と管理者番号と担当内容と連絡先)とその日時を取得
+	
 		
 	    public static AdminStoryBeans editStory(AdminStoryBeans asb, AdminAccountBeans aab, String new_title, String new_sentence, int new_eid, String new_next_title) {
 	        // 戻り値の用意
@@ -35,6 +34,7 @@ public class AdminStoryEditDAO {
 				con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 						+ ":5432/" + _dbname, _username, _password);
 
+				// ストーリーを更新し、最終編集情報を記録
 	            String sql = "BEGIN; UPDATE stories SET title = ?, sentence = ?, eid = ?, next_title = ? WHERE title = ?;"
 	            		+ "INSERT INTO story_creation_editing (title, admin_number, responsibility) VALUES (?, ?, ?::content); COMMIT;";
 	            PreparedStatement ps= con.prepareStatement(sql);
@@ -59,7 +59,8 @@ public class AdminStoryEditDAO {
 	            ps.setString(7, aab.getAdminNumber());
 	            ps.setString(8, aab.getResponsibility());
 	            
-	            int r = ps.executeUpdate();
+	            ps.executeUpdate();
+	            System.out.println(sql);
 
 	           
 	            // 戻り値をbeansにセット

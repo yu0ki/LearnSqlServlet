@@ -20,7 +20,7 @@ public class UserAnnouncementIndexDAO {
 	private String _username = "postgres";
 	private String _password = "postgres";
 	
-    // 問題一覧を表示する
+    // 告知を一覧取得する関数
 	
     public List<UserAnnouncementBeans> findAllAnnouncement(int uid) {
 
@@ -38,6 +38,7 @@ public class UserAnnouncementIndexDAO {
             String sql = "SELECT * FROM announcements ORDER BY publication_date DESC";
             PreparedStatement ps= con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            System.out.println(sql);
           
             
            
@@ -58,7 +59,9 @@ public class UserAnnouncementIndexDAO {
                 ps_for_is_opened.setInt(1, uab.getAid());
                 ps_for_is_opened.setInt(2, uid);
                 ResultSet rs_for_is_opened = ps_for_is_opened.executeQuery();
+                System.out.println(sql_for_is_opened);
                 if (rs_for_is_opened.next()) {
+                	// 一度でもこの告知を閲覧したことがある場合、閲覧状態(is_opened)を返す
                 	uab.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
                 	
                 } else {

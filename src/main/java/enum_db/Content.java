@@ -1,12 +1,15 @@
 package enum_db;
 
+// adminsテーブルのcontentカラムにはenum型が使われている。
+// javaでそれを表現するため、enum型のクラスContentを作成
+
 public enum Content {
+	// enumで管理されているのはこの3種の役職
 	Story("ストーリー"), Exercise("問題"), Announcement("告知");
 	
 	private String content;
 
 	Content(String content) {
-		// TODO 自動生成されたコンストラクター・スタブ
 		this.content = content;
 	}
 	

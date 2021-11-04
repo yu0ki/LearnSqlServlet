@@ -15,22 +15,30 @@ public class UserAccountDeleteDAO {
 		private String _username = "postgres";
 		private String _password = "postgres";
 		
+		
+// ユーザーがアカウントを削除する際に必要なデータアクセス
+		
 public  UserAccountDeleteDAO(UserAccountBeans uab) throws Exception {
 
 	Connection con = null;
 	try {
+		// データベースに接続
     	Class.forName("org.postgresql.Driver");
 		con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
 				+ ":5432/" + _dbname, _username, _password);
 
+		// データベースからアカウント情報を削除するのではなく、
+		// アカウントが有効かどうかを管理するカラムを更新することで削除とみなす
+		// 論理削除
         String sql = "UPDATE users SET is_valid_account = false WHERE nickname = ?";
+        System.out.println(sql);
         
-        
+        // ニックネーム部分に現在ログインしているユーザーのニックネームを挿入
         PreparedStatement ps= con.prepareStatement(sql);
         ps.setString(1, uab.getNickname());
 
     
-
+        // 実行
         int r = ps.executeUpdate();
         
         

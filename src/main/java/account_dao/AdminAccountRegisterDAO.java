@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
-import java.util.List;
 
 import beans.AdminAccountBeans;
 
@@ -31,51 +29,37 @@ public  AdminAccountRegisterDAO(AdminAccountBeans ab) throws Exception {
         
         
 //        ここで、新規登録者の名前が既にadmin_namesに登録されているかどうかを確認する。
+        // これは、ある管理者が別の担当内容で既にアカウントを登録していた時に発生する
         String sql2 = "SELECT * FROM admin_names WHERE admin_number = \' " + ab.getAdminNumber() + "\'"; 
+        System.out.println(sql2);
         Statement stmt = con.createStatement(); 
         ResultSet rs2 = stmt.executeQuery(sql2);
         
-        List<String> existing_admin = Arrays.asList();
-        while(rs2.next()) {
-        	existing_admin.add(rs2.getString("admin_number"));
-        }
-//          if (existing_admin.isEmpty()) {
-//        	  System.out.println("true");
-//          }
        
-        
-        if (existing_admin.isEmpty()) {
+
+        // 管理者がまだ別の担当内容でもアカウントを持っていない場合のみ、admin_namesに名前を登録
+        if (!rs2.next()) {
         	sql += "INSERT INTO admin_names VALUES ( \'" + ab.getAdminNumber() + "\',  \'" + ab.getName() + "\') ;";
-//        	PreparedStatement ps_sub = con.prepareStatement(sql);
-//        	try {
-//        		int r_sub = ps_sub.executeUpdate();
-//        		if(r_sub == 0) {
-//        			throw new Exception("admin_name登録失敗");
-//        		}
-//        	}
-//        	catch (Exception e) {
-//        		
-//        	}
-        } 
+    	}
         
+        // adminsテーブルに情報を登録
         sql += " INSERT INTO admins (admin_number, responsibility, contact) VALUES (?, ?::content, ?); ";
         
         PreparedStatement ps= con.prepareStatement(sql);
+        System.out.println(sql);
         ps.setString(1, ab.getAdminNumber());
         ps.setString(2, ab.getResponsibility());
         ps.setString(3, ab.getContact());
-        
-//        PreparedStatement ps= con.prepareStatement(sql);
 
     
 
         int r = ps.executeUpdate();
 
-//        if(r != 0) {
+        if(r != 0) {
             System.out.println("新規登録成功！");
-//        } else {
-//            System.out.println("新規登録失敗");
-//        }
+        } else {
+            System.out.println("新規登録失敗");
+        }
 
 	} catch (Exception e) {
 		e.printStackTrace();

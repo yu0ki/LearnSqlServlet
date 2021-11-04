@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 import beans.UserExerciseBeans;
 
 public class UserExerciseShowDAO {
-	//ここでは管理者が問題をいじるときに使うデータアクセス機能一覧を作る。
+	//ここではユーザーが問題を詳細表示するときに使うデータアクセス機能一覧を作る。
 	
 		// データベース接続に使用する情報
 		private static String _hostname = "localhost";
@@ -18,8 +18,7 @@ public class UserExerciseShowDAO {
 		private static String _username = "postgres";
 		private static String _password = "postgres";
 		
-	    // 問題一覧を表示する
-		// 問題の題名と最終編集者(名前と管理者番号と担当内容と連絡先)とその日時を取得
+	    // UserExerciseBeansの情報を埋めるべくsqlを走らせる関数
 		
 	    public static UserExerciseBeans findExercise(int eid, int uid) {
 	        // 戻り値の用意
@@ -36,6 +35,7 @@ public class UserExerciseShowDAO {
 	            PreparedStatement ps= con.prepareStatement(sql);
 	            ps.setInt(1, eid);
 	            ResultSet rs = ps.executeQuery();
+	            System.out.println(sql);
 
 	           
 	            // 戻り値をbeansにセット
@@ -58,6 +58,7 @@ public class UserExerciseShowDAO {
                 ps_for_answerings.setInt(3, eid);
                 ps_for_answerings.setInt(4, uid);
                 ResultSet rs_for_answerings = ps_for_answerings.executeQuery();
+                System.out.println(sql_for_answerings);
                 if (rs_for_answerings.next()) {
                 	returnUEB.setChallengeDate(rs_for_answerings.getObject("challenge_date", OffsetDateTime.class));
                 	returnUEB.setMyAnswer(rs_for_answerings.getString("answer"));
@@ -70,6 +71,7 @@ public class UserExerciseShowDAO {
 	            ps_for_bookmark.setInt(1, eid);
                 ps_for_bookmark.setInt(2, uid);
                 ResultSet rs_for_bookmark = ps_for_bookmark.executeQuery();
+                System.out.println(sql_for_bookmark);
                 returnUEB.setIsBookmarked(rs_for_bookmark.next());            
 	            
 //	            

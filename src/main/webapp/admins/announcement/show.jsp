@@ -11,7 +11,7 @@
 	
 		<jsp:include page="/templates/header_admin.jsp" flush="true" />
 		
-		<!-- 該当の問題を検索 -->
+		<!-- 該当の告知を検索 -->
 		<% beans.AdminAnnouncementBeans aanb = announcement_dao.AdminAnnouncementShowDAO.findAnnouncement(Integer.parseInt(request.getParameter("aid"))); %>
 		
 		<div class="row py-3">
@@ -49,7 +49,7 @@
 			</tr>
 			
 			
-			
+			<!-- 最終編集者情報を取得 -->
 			<% beans.AdminAccountBeans aab = new beans.AdminAccountBeans(); %>
 			<% aab.setAdminNumber(aanb.getAdminNumber()); %>
 			<% aab.setResponsibility(aanb.getResponsibility()); %>

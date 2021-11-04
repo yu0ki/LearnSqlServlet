@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class UserFilter
  */
+
+//　ログインしていないユーザーが下記のURLに該当するページにアクセスした場合に、ログインページへ飛ばすフィルター
 @WebFilter(urlPatterns= {"/user_home", "/confirm_account_delete", "/users/*"})
 public class UserFilter implements Filter {
 
@@ -43,7 +45,6 @@ public class UserFilter implements Filter {
 		HttpSession session = ((HttpServletRequest) request).getSession(false);
 		
 		if ( session == null) {
-//			System.out.println("direct access");
 			// シークレットブラウズでやると分かりやすい。
 			// 普通のブラウジングだと一回接続成功するとセッションが一定時間保たれてしまう
 			System.out.println("direct access");

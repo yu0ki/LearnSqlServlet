@@ -17,6 +17,7 @@
 			<div><a href="/LearnSqlServlet/admins/announcement/create.jsp" class="btn btn-success">新規作成</a></div>
 		</div>
 		
+		<!-- 告知一覧を取得 -->
 		<% announcement_dao.AdminAnnouncementIndexDAO aaid = new announcement_dao.AdminAnnouncementIndexDAO();  %>
 		<% java.util.List<beans.AdminAnnouncementBeans> aanb_list = aaid.findAllAnnouncement(); %>
 		

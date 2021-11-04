@@ -82,6 +82,8 @@ public class AnswerCheckDAO {
 			    	// ユーザーの入力を実行
 		            PreparedStatement my_ps= con.prepareStatement(my_answer);
 		            ResultSet my_rs = my_ps.executeQuery();
+		            System.out.println(my_answer);
+		            
 		            // my_rsの内容を「実行結果」画面に返すために、2次元配列result_arrayに格納する
 		            ArrayList<ArrayList<String>> result_array = new ArrayList<>();
 		            // answer_rsの内容も、2次元配列result_arrayに格納する
@@ -90,11 +92,13 @@ public class AnswerCheckDAO {
 		            // 模範解答を実行
 		            PreparedStatement answer_ps = con.prepareStatement(ueb.getAnswer());
 		            ResultSet answer_rs = answer_ps.executeQuery();
+		            System.out.println(ueb.getAnswer());
 		            
 		            // 答えに含まれる属性一覧取得
 		            ArrayList<String> fields = new ArrayList<>();
 		            ResultSetMetaData rsmd= answer_rs.getMetaData();
 		            
+		            // 取得した属性をリストへ格納
 		            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
 		            	   fields.add(rsmd.getColumnName(i));
 		            }
@@ -121,10 +125,12 @@ public class AnswerCheckDAO {
 	                     }
 	                 }
 	            	 
+	            	 // 等しくなかった場合、不正解
 	            	 if(!field_checker.equals(fields)) {
 	            		 is_correct = false;
 	            		 System.out.println("1");
 	            	 }
+	            	 
 	            	 
 	            	 field_checker.clear();
 	            	 // 2. my_fieldsがfieldsに含まれるかチェック
@@ -137,6 +143,7 @@ public class AnswerCheckDAO {
 	                     }
 	                 }
 	            	 
+	            	 // 等しくなかった場合、不正解
 	            	 if(!field_checker.equals(my_fields)) {
 	            		 is_correct = false; 
 	            		 System.out.println("2");
