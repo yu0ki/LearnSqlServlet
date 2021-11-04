@@ -119,10 +119,36 @@
 			</div>
 		</div>
 		
-		<% if (request.getSession(false).getAttribute("result_map") != null) {
-			request.getSession(false).removeAttribute("result_map");
-			System.out.println("通過しました2");
-		} %>
+		
+		
+		<div class="row py-3">
+			<div class="col-4"><h3>今までの解答履歴</h3> </div>
+		</div>
+		
+		<table class="table">
+			<tr class="bg-light">
+				<th>前回の結果</th>
+				<th>その時の解答</th>
+				<th>挑戦日時</th>
+			</tr>
+			
+			<% java.util.List<java.util.List<String>> logs = exercise_dao.UserAnswerLogDAO.findAnswerLog(ueb.getEid(), uid); %>
+			<% for(int i = 0; i < logs.size(); i++) { %>
+				<tr>
+					<% java.util.List<String> log = logs.get(i); %>
+					<td>
+						<% if (Boolean.parseBoolean(log.get(0))) { %>
+							<span class="text-success"><i class="fas fa-check-circle"></i></span>　正解
+						<% } else { %>
+							<span class="text-danger"><i class="fas fa-times-circle"></i></span>　不正解
+						<% } %>
+					</td>
+					<td><%= log.get(1) %></td>
+					
+					<td><%= log.get(2) %></td>
+				</tr>
+			<% } %>
+		</table>
 		
 	
 		<jsp:include page="/templates/footer.jsp" flush="true" />
