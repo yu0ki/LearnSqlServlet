@@ -60,15 +60,10 @@ public class UserAnnouncementIndexDAO {
                 ResultSet rs_for_is_opened = ps_for_is_opened.executeQuery();
                 if (rs_for_is_opened.next()) {
                 	uab.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
-                	if (!rs_for_is_opened.getBoolean("is_opened")) {
-                		uab.setIsFocused(true);
-                	} else {
-                		uab.setIsFocused(false);
-                	}
+                	
                 } else {
                 	// 初閲覧（閲覧記録がない）場合は初期値を設定
                 	uab.setIsOpened(false);
-                	uab.setIsFocused(false);
                 }
 //	            
                 

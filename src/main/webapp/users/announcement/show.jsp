@@ -19,11 +19,8 @@
 		
 		
 		<% // 閲覧履歴をつける
-		if (!uab.getIsOpened() && !uab.getIsFocused()) {
-			announcement_dao.UserAnnouncementViewsDAO.setViewAnnouncement(aid, uid, true);
-			uab.setIsOpened(true);
-			uab.setIsFocused(false);
-		}%>
+			announcement_dao.UserAnnouncementViewsDAO.setViewAnnouncement(aid, uid, uab.getIsOpened());%>
+		<% uab = announcement_dao.UserAnnouncementShowDAO.findAnnouncement(aid, uid); %>
 		
 		<div class="row py-3">
 			<div class="col-9"><h3><%= uab.getTitle() %></h3> </div>	
@@ -32,15 +29,13 @@
 					<form action="./show" method="get">
 						<input type="hidden" name="aid" value="<%= uab.getAid() %>">
 						<input type="hidden" name="new_is_opened" value="false">
-						<input type="submit" value="チェックをつける" class="btn btn-primary">
-						<i class="far fa-flag text-primary"></i>
+						<input type="submit" value="未読にする" class="btn btn-secondary">
 					</form>
 				<% } else { %>
 					<form action="./show" method="get">
 						<input type="hidden" name="aid" value="<%= uab.getAid() %>">
 						<input type="hidden" name="new_is_opened" value="true">
-						<input type="submit" value="チェックを外す" class="btn btn-primary">
-						<i class="fas fa-flag text-primary"></i>
+						<input type="submit" value="既読にする" class="btn btn-primary">
 					</form>
 				<% } %>
 				

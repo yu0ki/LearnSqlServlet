@@ -37,7 +37,8 @@ public class UserAnnouncementShowServlet extends HttpServlet {
 		// パラメーターを取得
 		int aid = Integer.parseInt(request.getParameter("aid"));
 		int uid = ((UserAccountBeans) request.getSession(false).getAttribute("user")).getUid();
-		boolean new_is_opened = Boolean.parseBoolean(request.getParameter("new_is_opened"));	
+		boolean new_is_opened = true;
+		new_is_opened = Boolean.parseBoolean(request.getParameter("new_is_opened"));	
 		
 		// 閲覧履歴をつける
 		UserAnnouncementViewsDAO.setViewAnnouncement(aid, uid, (new_is_opened));

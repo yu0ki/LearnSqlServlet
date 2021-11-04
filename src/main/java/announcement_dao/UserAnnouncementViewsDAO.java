@@ -37,19 +37,26 @@ public class UserAnnouncementViewsDAO {
 	            // 閲覧記録がなければ作成
 	            // あればis_opened(カラム名)をis_opened(引数)でアップデート
 	            String sql_for_is_opened;
+	            PreparedStatement ps_for_is_opened;
 	            if (!rs.next()) {
 	            	sql_for_is_opened = "INSERT INTO view_announcements (is_opened, uid, aid) VALUES (?, ?, ?)";
+	            	ps_for_is_opened = con.prepareStatement(sql_for_is_opened);
+
+	             	ps_for_is_opened.setBoolean(1, true);
+	             	ps_for_is_opened.setInt(2, uid);
+	             	ps_for_is_opened.setInt(3, aid);
 	            } else {
 	            	sql_for_is_opened = "UPDATE view_announcements SET is_opened = ? WHERE uid = ? AND aid = ?";
+	            	ps_for_is_opened = con.prepareStatement(sql_for_is_opened);
+
+	             	ps_for_is_opened.setBoolean(1, is_opened);
+	             	ps_for_is_opened.setInt(2, uid);
+	             	ps_for_is_opened.setInt(3, aid);
 	            }
 	            
 	            System.out.println(sql_for_is_opened);
 	            
-	            PreparedStatement ps_for_is_opened = con.prepareStatement(sql_for_is_opened);
-
-            	ps_for_is_opened.setBoolean(1, is_opened);
-            	ps_for_is_opened.setInt(2, uid);
-            	ps_for_is_opened.setInt(3, aid);
+	           
 	            
 	            ps_for_is_opened.executeUpdate();
 	            

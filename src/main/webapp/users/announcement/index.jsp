@@ -29,9 +29,7 @@
 		        <% beans.UserAnnouncementBeans uab = uab_list.get(i);%>
 		        <tr>
 		            <td>
-		            	<% if (uab.getIsFocused()) {%>
-		            		<span class="text-primary"><i class="fas fa-flag"></i></span>
-		            	<% } else if (!uab.getIsOpened() && !uab.getIsFocused()) { %>
+		            	<% if (!uab.getIsOpened()) {%>
 		            		<span class="text-danger">NEW!</span>
 		            	<% } %>
 		            	<a href="/LearnSqlServlet/users/announcement/show.jsp?aid=<%= uab.getAid() %>"><%= uab.getTitle() %></a>
