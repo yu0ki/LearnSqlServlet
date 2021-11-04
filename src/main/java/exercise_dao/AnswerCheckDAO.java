@@ -16,11 +16,12 @@ import beans.UserExerciseBeans;
 public class AnswerCheckDAO {
 	//ここではユーザーが送ってきた問題への解答を採点する
 	
-			// データベース接続に使用する情報
+			// データベース接続に使用する情報/
+			// 問題演習用以外のDBへのアクセス権限がないユーザー「challengerを用いる」
 			private static String _hostname = "localhost";
 			private static String _dbname = "sampledb";
-			private static String _username = "postgres";
-			private static String _password = "postgres";
+			private static String _username = "challenger";
+			private static String _password = "challenger";
 			
 		    // 採点結果を返却する関数
 			// ユーザーが入力したSQLの実行結果をString(key = result)
@@ -230,7 +231,20 @@ public class AnswerCheckDAO {
 				} finally {
 					try {
 						 
-//		         
+						// challengerでの接続を一旦切断
+		         		if (con != null) {
+						con.close();
+		         		}
+		         		
+		         		// postgres(DBの全権限を持つユーザー)でつなぎなおす
+		         		con = null;
+				        try {
+				        	Class.forName("org.postgresql.Driver");
+							con = DriverManager.getConnection("jdbc:postgresql://" + _hostname
+									+ ":5432/" + _dbname, "postgres", "postgres");
+				        } catch (Exception e) {
+				        	e.printStackTrace();
+				        }
 			            
 			            // 問題の解答状況を更新
 			            // 最新の解答履歴だけbeansに保存することになっていたbeansも更新
@@ -256,10 +270,12 @@ public class AnswerCheckDAO {
 		                	ueb.setMyAnswer(rs_for_return.getString("answer"));
 		                	ueb.setIsCorrect(rs_for_return.getBoolean("is_correct"));
 		                } 
-	                
-						if (con != null) {
+		                
+		                if (con != null) {
 							con.close();
-						}
+			         	}
+	                
+						
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
