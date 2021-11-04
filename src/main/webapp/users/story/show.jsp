@@ -23,11 +23,10 @@
 		<% beans.UserExerciseBeans ueb = exercise_dao.UserExerciseShowDAO.findExercise(eid, uid); %>
 		
 		<% // 閲覧履歴をつける
-		if (!usb.getIsOpened() && !usb.getIsFocused()) {
-			story_dao.UserStoryViewsDAO.setViewStory(title, uid, true);
-			usb.setIsOpened(true);
-			usb.setIsFocused(false);
-		}%>
+			story_dao.UserStoryViewsDAO.setViewStory(title, uid, usb.getIsOpened());
+			usb.setIsOpened(usb.getIsOpened()); %>
+			
+		<% usb = story_dao.UserStoryShowDAO.findStory(title, uid); %>
 		
 		<div class="row py-3">
 			<div class="col-9"><h3><%= usb.getTitle() %></h3> </div>	
@@ -36,15 +35,13 @@
 					<form action="./show" method="get">
 						<input type="hidden" name="title" value="<%= usb.getTitle() %>">
 						<input type="hidden" name="new_is_opened" value="false">
-						<input type="submit" value="チェックをつける" class="btn btn-primary">
-						<i class="far fa-flag text-primary"></i>
+						<input type="submit" value="未読にする" class="btn btn-secondary">
 					</form>
 				<% } else { %>
 					<form action="./show" method="get">
 						<input type="hidden" name="title" value="<%= usb.getTitle() %>">
 						<input type="hidden" name="new_is_opened" value="true">
-						<input type="submit" value="チェックを外す" class="btn btn-primary">
-						<i class="fas fa-flag text-primary"></i>
+						<input type="submit" value="既読にする" class="btn btn-primary">
 					</form>
 				<% } %>
 				

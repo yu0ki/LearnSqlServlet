@@ -29,9 +29,7 @@
 		        <% beans.UserStoryBeans usb = usb_list.get(i);%>
 		        <tr>
 		            <td>
-		            	<% if (usb.getIsFocused()) {%>
-		            		<span class="text-primary"><i class="fas fa-flag"></i></span>
-		            	<% } else if (!usb.getIsOpened() && !usb.getIsFocused()) { %>
+		            	<% if (!usb.getIsOpened()) {%>
 		            		<span class="text-danger">NEW!</span>
 		            	<% } %>
 		            	<a href="/LearnSqlServlet/users/story/show.jsp?title=<%= usb.getTitle() %>"><%= usb.getTitle() %></a>

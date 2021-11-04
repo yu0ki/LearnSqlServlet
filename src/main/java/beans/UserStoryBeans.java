@@ -11,9 +11,7 @@ public class UserStoryBeans {
 	// このストーリーの現在ログインしているユーザーの閲覧履歴情報
 	// is_openedはこのストーリーが1度でもアクセスされたことがあればtrue
 	private boolean is_opened;
-	// is_focusedはこのストーリーにフラグが立っているときにtrue
-	// データベース上でフラグが立っているというのは、閲覧履歴があるのにis_openedカラムがfalseの場合に相当
-	private boolean is_focused;
+	
 	
 	public String getTitle() {
 		return title;
@@ -55,12 +53,6 @@ public class UserStoryBeans {
 		this.is_opened = is_opened;
 	}
 	
-	public boolean getIsFocused() {
-		return is_focused;
-	}
 	
-	public void setIsFocused(boolean is_focused) {
-		this.is_focused = is_focused;
-	}
 
 }

@@ -57,15 +57,10 @@ public class UserStoryIndexDAO {
                 ResultSet rs_for_is_opened = ps_for_is_opened.executeQuery();
                 if (rs_for_is_opened.next()) {
                 	usb.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
-                	if (!rs_for_is_opened.getBoolean("is_opened")) {
-                		usb.setIsFocused(true);
-                	} else {
-                		usb.setIsFocused(false);
-                	}
+                	
                 } else {
                 	// 初閲覧（閲覧記録がない）場合は初期値を設定
                 	usb.setIsOpened(false);
-                	usb.setIsFocused(false);
                 }
                 
              // ここからはストーリーを最新話から順に並べる作業

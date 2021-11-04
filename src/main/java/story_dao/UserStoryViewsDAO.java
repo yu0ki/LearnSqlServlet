@@ -38,20 +38,25 @@ public class UserStoryViewsDAO {
 	            // 閲覧記録がなければ作成
 	            // あればis_opened(カラム名)をis_opened(引数)でアップデート
 	            String sql_for_is_opened;
+	            PreparedStatement ps_for_is_opened;
 	            if (!rs.next()) {
 	            	sql_for_is_opened = "INSERT INTO view_stories (is_opened, uid, title) VALUES (?, ?, ?)";
+	            	ps_for_is_opened = con.prepareStatement(sql_for_is_opened);
+
+	             	ps_for_is_opened.setBoolean(1, true);
+	             	ps_for_is_opened.setInt(2, uid);
+	             	ps_for_is_opened.setString(3, title);
 	            } else {
 	            	sql_for_is_opened = "UPDATE view_stories SET is_opened = ? WHERE uid = ? AND title = ?";
+	            	ps_for_is_opened = con.prepareStatement(sql_for_is_opened);
+
+	            	ps_for_is_opened.setBoolean(1, is_opened);
+	            	ps_for_is_opened.setInt(2, uid);
+	            	ps_for_is_opened.setString(3, title);
 	            }
 	            
 	            System.out.println(sql_for_is_opened);
-	            
-	            PreparedStatement ps_for_is_opened = con.prepareStatement(sql_for_is_opened);
 
-            	ps_for_is_opened.setBoolean(1, is_opened);
-            	ps_for_is_opened.setInt(2, uid);
-            	ps_for_is_opened.setString(3, title);
-	            
 	            ps_for_is_opened.executeUpdate();
 	            
 	            

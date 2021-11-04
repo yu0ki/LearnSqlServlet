@@ -43,10 +43,11 @@ public class UserStoryShowServlet extends HttpServlet {
 		// パラメーターを取得
 		String title = request.getParameter("title");
 		int uid = ((UserAccountBeans) request.getSession(false).getAttribute("user")).getUid();
-		boolean new_is_opened = Boolean.parseBoolean(request.getParameter("new_is_opened"));	
+		boolean new_is_opened = false;
+		new_is_opened = Boolean.parseBoolean(request.getParameter("new_is_opened"));	
 		
 		// 閲覧履歴をつける
-		UserStoryViewsDAO.setViewStory(title, uid, (new_is_opened));
+		UserStoryViewsDAO.setViewStory(title, uid, new_is_opened);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/users/story/show.jsp");
 		dispatcher.forward(request,response);

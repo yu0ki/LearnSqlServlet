@@ -58,15 +58,10 @@ public class UserStoryShowDAO {
                 ResultSet rs_for_is_opened = ps_for_is_opened.executeQuery();
                 if (rs_for_is_opened.next()) {
                 	returnUSB.setIsOpened(rs_for_is_opened.getBoolean("is_opened"));
-                	if (!rs_for_is_opened.getBoolean("is_opened")) {
-                		returnUSB.setIsFocused(true);
-                	} else {
-                		returnUSB.setIsFocused(false);
-                	}
+                	
                 } else {
                 	// 初閲覧（閲覧記録がない）場合は初期値を設定
                 	returnUSB.setIsOpened(false);
-                	returnUSB.setIsFocused(false);
                 }
 //	            
 	            
