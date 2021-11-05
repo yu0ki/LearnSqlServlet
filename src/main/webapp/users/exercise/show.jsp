@@ -113,7 +113,7 @@
 							</table>
 						<% } %>
 					<% } else {%>
-						<% System.out.println("result_map = " + result_map); %>
+						<% //System.out.println("result_map = " + result_map); %>
 					<% } %>
 				</div>
 			</div>

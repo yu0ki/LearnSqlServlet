@@ -37,7 +37,7 @@ public class UserExerciseShowServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println("通過しました1");
+//		System.out.println("通過しました1");
 //		if (request.getSession(false).getAttribute("result_map") != null) {
 //			request.getSession(false).removeAttribute("result_map");
 //			System.out.println("通過しました2");
