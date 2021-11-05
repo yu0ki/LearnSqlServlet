@@ -150,6 +150,10 @@
 			<% } %>
 		</table>
 		
+		<% if (request.getSession(false).getAttribute("result_map") != null) {
+				request.getSession(false).removeAttribute("result_map");
+			} %>
+		
 	
 		<jsp:include page="/templates/footer.jsp" flush="true" />
 </html>
