@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  */
 
 // ログインしていない管理者が以下のURLのページにアクセスすると、ログインページに飛ばすフィルター
-@WebFilter(urlPatterns= {"/admins/home", "/admins/account/edit", "/admins/account/confirm_account_edit", "/admins/story/*", "/admins/exercise/*", "/admins/announcement/*"})
+@WebFilter(urlPatterns= {"/admins/home", "/admins/account_edit.jsp", "/admins/account/confirm_account_edit", "/admins/story/*", "/admins/exercise/*", "/admins/announcement/*"})
 public class AdminFilter implements Filter {
 
     /**

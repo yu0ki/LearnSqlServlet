@@ -18,6 +18,7 @@
 					<th class="bg-light">ニックネーム</th>
 					<td>
 						<% beans.UserAccountBeans user = (beans.UserAccountBeans) session.getAttribute("user"); %>
+						<%= user.getNickname() %>
 						
 						<form action="./account/edit" method="post">
 							<div class="field py-3">

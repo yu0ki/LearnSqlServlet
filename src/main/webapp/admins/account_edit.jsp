@@ -21,11 +21,11 @@
 				</div>
 				
 				<div class="field py-3">
-					<label>氏名</label>：<input type="text" name="name"  value=<% out.println(admin.getName()); %> required>
+					<label>氏名　　　</label>：<input type="text" name="name"  value=<% out.println(admin.getName()); %> required>
 				</div>
 				
 				<div class="filed py-3">
-					<label>担当内容</label> : <select name="responsibility" required>
+					<label>担当内容　</label> : <select name="responsibility" required>
 												<option value=<% out.println(admin.getResponsibility()); %>>
 													<% out.println(admin.getResponsibility()); %>
 												</option>
@@ -36,7 +36,7 @@
 				</div>
 				
 				<div class="field py-3">
-					<label>連絡先</label> : <input type="text" name="contact" value="<% out.println(admin.getContact()); %>" required>
+					<label>連絡先　　</label> : <input type="text" name="contact" value="<% out.println(admin.getContact()); %>" required>
 				</div>
 				
 				<div class="py-3">
