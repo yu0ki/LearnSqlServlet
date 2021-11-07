@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,9 +73,35 @@ public class UserExerciseIndexDAO {
                 ueb.setSentence(rs.getString("sentence"));    
                 ueb.setAnswer(rs.getString("answer"));  
                 
+                
+                
+                // 問題の解答状況を取得
+	            // 最新の解答履歴だけbeansに保存することにする
+	            String sql_for_answerings = "SELECT * FROM answerings "
+	            		+ "WHERE eid = ? AND uid = ? AND challenge_date = (SELECT MAX(challenge_date) FROM answerings WHERE eid = ?  AND uid = ?)";
+                PreparedStatement ps_for_answerings = con.prepareStatement(sql_for_answerings);
+                ps_for_answerings.setInt(1, ueb.getEid());
+                ps_for_answerings.setInt(2, uid);
+                ps_for_answerings.setInt(3, ueb.getEid());
+                ps_for_answerings.setInt(4, uid);
+                ResultSet rs_for_answerings = ps_for_answerings.executeQuery();
+                System.out.println(sql_for_answerings);
+                if (rs_for_answerings.next()) {
+                	ueb.setChallengeDate(rs_for_answerings.getObject("challenge_date", OffsetDateTime.class));
+                	ueb.setMyAnswer(rs_for_answerings.getString("answer"));
+                	ueb.setIsCorrect(rs_for_answerings.getBoolean("is_correct"));
+                } 
+                
+                // ブックマークされているかどうかを取得
+	            String sql_for_bookmark = "SELECT * FROM bookmarks WHERE eid = ? AND uid = ?;";
+	            PreparedStatement ps_for_bookmark = con.prepareStatement(sql_for_bookmark);
+	            ps_for_bookmark.setInt(1, ueb.getEid());
+                ps_for_bookmark.setInt(2, uid);
+                ResultSet rs_for_bookmark = ps_for_bookmark.executeQuery();
+                System.out.println(sql_for_bookmark);
+                ueb.setIsBookmarked(rs_for_bookmark.next());     
+                
                 returnUEB.add(ueb);
-                
-                
                 
             }
             

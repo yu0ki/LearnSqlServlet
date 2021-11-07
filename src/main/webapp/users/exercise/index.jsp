@@ -59,7 +59,8 @@
 			</tr>
 		
 			<%for(int i = 0; i < ueb_list.size(); i++){%>
-		        <% beans.UserExerciseBeans ueb = exercise_dao.UserExerciseShowDAO.findExercise(ueb_list.get(i).getEid(), uid);%>
+		        <% // beans.UserExerciseBeans ueb = exercise_dao.UserExerciseShowDAO.findExercise(ueb_list.get(i).getEid(), uid);%>
+		        <% beans.UserExerciseBeans ueb = ueb_list.get(i);%>
 		        <% if (display_option == 0 || display_option == 1 || (display_option == 2 && !ueb.getIsCorrect()) || (display_option == 3 && (!ueb.getIsCorrect() || ueb.getIsBookmarked()))) { %>
 			        <tr class="row">
 			            <td class="col-1">
