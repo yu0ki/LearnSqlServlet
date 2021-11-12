@@ -47,7 +47,7 @@ public class UserExerciseIndexDAO {
 			} else if (display_option == 2) {
 				// 最新の解答履歴で不正解だった問題
 				sql = "SELECT * FROM exercises WHERE eid IN (SELECT eid FROM answerings WHERE uid = " +
-						uid + "  ORDER BY eid ASC);";
+						uid + ")  ORDER BY eid ASC;";
 			} else if (display_option == 3) {
 				// 不正解だった問題 + ブックマークした問題
 				sql = " (SELECT eid, sentence, exercises.answer FROM exercises LEFT JOIN answerings USING (eid) WHERE eid IN (SELECT eid FROM answerings WHERE uid = "

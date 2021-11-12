@@ -62,7 +62,9 @@
 			
 			<div class="row">
 				<div class="col-1"></div>
-				<div class="col-10"><%= ueb.getSentence() %></div>
+				<div class="col-10">
+					<% out.println(ueb.getSentence()); %>
+				</div>
 			</div>
 			
 			<div class="row py-3">

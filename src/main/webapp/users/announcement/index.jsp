@@ -25,7 +25,7 @@
 				<th>タイトル</th>
 			</tr>
 		
-			<%for(int i = uab_list.size() - 1; i >= 0; i--){%>
+			<%for(int i = 0; i < uab_list.size(); i++){%>
 		        <% beans.UserAnnouncementBeans uab = uab_list.get(i);%>
 		        <tr>
 		            <td>

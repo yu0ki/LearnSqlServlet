@@ -28,7 +28,7 @@
 		
 			<%for(int i = 0; i < aeb_list.size(); i++){%>
 		        <% beans.AdminExerciseBeans aeb = aeb_list.get(i);%>
-		        <tr class="row">
+		        <tr class="row ">
 		            <td class="col-2">
 		            	<a href="/LearnSqlServlet/admins/exercise/show.jsp?eid=<%= aeb.getEid() %>"><%= aeb.getEid() %></a>
 		            </td>
